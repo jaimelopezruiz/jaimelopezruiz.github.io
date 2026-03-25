@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jaime López Ruiz | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #0c0c0c;
+      --surface:     #131313;
+      --border:      #222222;
+      --border-mid:  #2e2e2e;
+      --text:        #e2e2e2;
+      --text-muted:  #8c8c8c;
+      --text-dim:    #4a4a4a;
+      --accent:      #5b8fa8;
+      --accent-dim:  #2d4f60;
+      --mono:        'IBM Plex Mono', monospace;
+      --serif:       'Crimson Pro', Georgia, serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 18px;
+      line-height: 1.75;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Dot nav */
+    #dot-nav {
+      position: fixed;
+      right: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      z-index: 100;
+    }
+
+    #dot-nav a {
+      display: flex;
+      width: 24px;
+      height: 24px;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      text-decoration: none;
+    }
+
+    #dot-nav a::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-dim);
+      transition: background 0.25s, transform 0.25s;
+    }
+
+    #dot-nav a:hover,
+    #dot-nav a.active {
+      transform: none;
+    }
+
+    #dot-nav a:hover::before,
+    #dot-nav a.active::before {
+      background: var(--accent);
+      transform: scale(1.5);
+    }
+
+    #dot-nav a::after {
+      content: attr(data-label);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      position: absolute;
+      right: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+    }
+
+    #dot-nav a:hover::after { opacity: 1; }
+
+    /* Layout */
+    .section {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 100px 28px;
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--border);
+    }
+
+    /* Section labels */
+    .label {
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #9a9a9a;
+      margin-bottom: 52px;
+    }
+
+    .label span {
+      color: var(--accent);
+      margin-right: 8px;
+    }
+
+    /* Hero */
+    #hero {
+      padding-top: 22vh;
+      padding-bottom: 100px;
+      border-top: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-media {
+      position: absolute;
+      inset: 20px 0 0 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(12, 12, 12, 0.78);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-name {
+      font-family: var(--mono);
+      font-size: clamp(28px, 4.5vw, 46px);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 18px;
+    }
+
+    .hero-descriptor {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: #c8c8c8;
+      letter-spacing: 0.06em;
+      line-height: 2;
+      margin-bottom: 48px;
+      text-shadow: 0 1px 10px rgba(0, 0, 0, 0.34);
+    }
+
+    .hero-descriptor span {
+      display: block;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .hero-links a {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #d5d5d5;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(213, 213, 213, 0.32);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+      text-shadow: 0 1px 10px rgba(0, 0, 0, 0.34);
+    }
+
+    .hero-links a:hover {
+      color: var(--text);
+      border-color: rgba(220, 220, 220, 0.58);
+    }
+
+    /* About */
+    #about p {
+      color: var(--text);
+      max-width: 620px;
+      font-size: 19px;
+      font-weight: 300;
+    }
+
+    #about p + p { margin-top: 18px; }
+
+    .about-meta {
+      margin-top: 24px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+
+    #about .cv-link {
+      display: inline-block;
+      margin-top: 32px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent-dim);
+      padding-bottom: 2px;
+      transition: border-color 0.2s;
+    }
+
+    #about .cv-link:hover { border-color: var(--accent); }
+
+    /* Work entries */
+    .entry {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      column-gap: 24px;
+      row-gap: 6px;
+      transition: background 0.15s;
+    }
+
+    .entry:first-of-type { border-top: 1px solid var(--border); }
+
+    .entry-left { grid-column: 1; }
+    .entry-right { grid-column: 2; text-align: right; align-self: start; }
+
+    .entry-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+    }
+
+    .entry-logo {
+      width: 92px;
+      height: 92px;
+      border: 1px solid var(--border-mid);
+      border-radius: 16px;
+      background: var(--bg);
+      color: var(--text-dim);
+      font-family: var(--mono);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(91, 143, 168, 0.08);
+    }
+
+    .entry-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      padding: 12px;
+      background: var(--bg);
+    }
+
+    .entry-logo span {
+      line-height: 1;
+    }
+
+    .entry-org {
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .entry-title {
+      font-size: 21px;
+      font-weight: 400;
+      color: var(--text);
+      margin-top: 6px;
+    }
+
+    .entry-date {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .entry-bullets {
+      grid-column: 1 / -1;
+      list-style: none;
+      margin-top: 12px;
+    }
+
+    .entry-bullets li {
+      padding-left: 16px;
+      position: relative;
+      color: var(--text-muted);
+      font-size: 16.5px;
+      line-height: 1.68;
+      margin-bottom: 5px;
+    }
+
+    .entry-bullets li::before {
+      content: "-";
+      position: absolute;
+      left: 0;
+      color: var(--text-dim);
+      font-size: 13px;
+    }
+
+    .entry-link {
+      grid-column: 1 / -1;
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .entry-link a,
+    .card-link a {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border-mid);
+      padding-bottom: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .entry-link a:hover,
+    .card-link a:hover {
+      color: var(--accent);
+      border-color: var(--accent-dim);
+    }
+
+    .card-link {
+      margin-top: 18px;
+    }
+
+    .card-link a {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: #d5d5d5;
+      border-bottom: 1px solid rgba(213, 213, 213, 0.42);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .card-link a:hover {
+      color: var(--text);
+      border-color: rgba(220, 220, 220, 0.58);
+    }
+
+    /* Projects */
+    .project-group + .project-group {
+      margin-top: 34px;
+    }
+
+    .project-group-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      align-items: start;
+    }
+
+    .project-row {
+      display: contents;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 26px 24px;
+      transition: border-color 0.25s, transform 0.25s, background 0.25s, box-shadow 0.25s, min-height 0.25s;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      border-color: #3a4c57;
+      background: #151515;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+    }
+
+    .card.is-expanded {
+      grid-column: 1 / -1;
+      min-height: 560px;
+      border-color: #4a6270;
+      background: #161616;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+      transform: none;
+      z-index: 2;
+    }
+
+    .project-thumb {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      margin-bottom: 18px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, #121212 0%, #0f0f0f 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      transition: aspect-ratio 0.25s ease, margin-bottom 0.25s ease;
+    }
+
+    .card.is-expanded .project-thumb {
+      aspect-ratio: 16 / 8;
+      margin-bottom: 22px;
+    }
+
+    .project-thumb::after {
+      content: attr(data-placeholder);
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      transition: opacity 0.2s;
+      z-index: 1;
+    }
+
+    .project-thumb img,
+    .project-thumb video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: var(--bg);
+    }
+
+    .project-thumb img {
+      opacity: 1;
+      transition: opacity 0.25s ease;
+      z-index: 2;
+    }
+
+    .project-thumb video {
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      z-index: 3;
+    }
+
+    .project-thumb.has-media::after {
+      opacity: 0;
+    }
+
+    .project-thumb.is-playing img {
+      opacity: 0;
+    }
+
+    .project-thumb.is-playing video {
+      opacity: 1;
+    }
+
+    .card-title {
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 7px;
+    }
+
+    .card-desc {
+      font-size: 15.5px;
+      color: var(--text-muted);
+      line-height: 1.62;
+      margin-bottom: 16px;
+    }
+
+    .card-expanded {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.25s ease, opacity 0.2s ease, margin-top 0.25s ease;
+      margin-top: 0;
+    }
+
+    .card-expanded p {
+      font-size: 15px;
+      line-height: 1.68;
+      color: #b5b5b5;
+      margin-bottom: 12px;
+    }
+
+    .card-expanded p:last-child {
+      margin-bottom: 0;
+    }
+
+    .card.is-expanded .card-expanded {
+      max-height: 220px;
+      opacity: 1;
+      margin-top: 8px;
+    }
+
+    /* Courses */
+    .courses-toggle {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      user-select: none;
+      margin-bottom: 0;
+      padding: 0;
+      background: none;
+      border: none;
+      color: inherit;
+      width: 100%;
+      text-align: left;
+    }
+
+    .courses-toggle-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .courses-toggle-label span { color: var(--accent); margin-right: 8px; }
+
+    .chevron {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      transition: transform 0.3s ease;
+      display: inline-block;
+    }
+
+    .courses-toggle[aria-expanded="true"] .chevron { transform: rotate(90deg); }
+
+    .courses-body {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .courses-body.open { max-height: 1400px; }
+
+    .courses-inner { padding-top: 48px; }
+
+    .course-group {
+      margin-bottom: 36px;
+    }
+
+    .course-group-title {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .course-list {
+      list-style: none;
+    }
+
+    .course-list li {
+      font-size: 15.5px;
+      color: var(--text-muted);
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .course-list li:last-child { border-bottom: none; }
+
+    /* Contact */
+    #contact {
+      padding-bottom: 80px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+
+    .contact-links a {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .contact-links a:hover { color: var(--text); }
+
+    .contact-links a .link-label {
+      border-bottom: 1px solid var(--border-mid);
+      padding-bottom: 1px;
+      transition: border-color 0.2s;
+    }
+
+    .contact-links a:hover .link-label { border-color: var(--text-muted); }
+
+    .footer-note {
+      margin-top: 60px;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 0.06em;
+    }
+
+    @media (max-width: 640px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      #dot-nav { display: none; }
+      .section { padding: 72px 20px; }
+      #hero { padding-top: 15vh; }
+      .entry { grid-template-columns: 1fr; }
+      .entry-right { text-align: left; }
+      .entry-head { gap: 12px; }
+      .entry-logo {
+        width: 64px;
+        height: 64px;
+      }
+      .card.is-expanded {
+        min-height: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="dot-nav" aria-label="Page sections">
+    <a href="#hero" data-label="Top" aria-label="Hero"></a>
+    <a href="#about" data-label="About" aria-label="About"></a>
+    <a href="#work" data-label="Work" aria-label="Work"></a>
+    <a href="#projects" data-label="Projects" aria-label="Projects"></a>
+    <a href="#courses" data-label="Courses" aria-label="Courses"></a>
+    <a href="#contact" data-label="Contact" aria-label="Contact"></a>
+  </nav>
+
+  <section id="hero" class="section">
+    <div class="hero-media" aria-hidden="true">
+      <!-- Replace this source with your hero background video file. -->
+      <video class="hero-video" autoplay muted loop playsinline>
+        <source src="Assets\Reduced Hero.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <h1 class="hero-name">Jaime López Ruiz</h1>
+      <div class="hero-descriptor">
+        <span>MEng Mechanical Engineering</span>
+        <span>Imperial College London</span>
+      </div>
+      <div class="hero-links">
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+        <a href="Assets\CV Jaime Lopez Ruiz.pdf" target="_blank" rel="noopener">CV -></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <p>MEng Mechanical Engineering at Imperial College London
+    </p>
+    <p>
+    Specialising in Mechatronics &amp; Control and Nuclear Engineering
+    </p>
+    <p>
+      Fluent in English, Spanish and French (C1) 
+    </p>
+    <a href="Assets\CV Jaime Lopez Ruiz.pdf" target="_blank" rel="noopener" class="cv-link">Download CV -></a>
+  </section>
+
+  <section id="work" class="section">
+    <p class="label"><span>02</span>Work</p>
+    <!-- Swap each placeholder by setting the img src to your real logo file and removing the hidden attribute. -->
+
+    <div class="entry">
+      <div class="entry-left">
+        <div class="entry-head">
+          <div class="entry-logo" aria-label="PerkinElmer logo placeholder">
+            <img src="Assets/LOGO PerkinElmer.png" alt="PerkinElmer" />
+          </div>
+          <div>
+            <div class="entry-org">PerkinElmer</div>
+            <div class="entry-title">Mechanical Design Engineer</div>
+          </div>
+        </div>
+      </div>
+      <div class="entry-right">
+        <div class="entry-date">Sep 2025 - Aug 2026</div>
+      </div>
+      <ul class="entry-bullets">
+        <li>Developing and rapid prototyping of opto-mechanical assemblies for IR/UV instruments </li>
+        <li>Material Characterization-focused R&amp;D in an industrial engineering setting</li>
+      </ul>
+      <div class="entry-link">
+        <a href="https://www.perkinelmer.com/category/molecular-spectroscopy" target="_blank" rel="noopener">External Page -></a>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-left">
+        <div class="entry-head">
+          <div class="entry-logo" aria-label="University of Oxford logo placeholder">
+            <img src="Assets/LOGO Oxford.png" alt="University of Oxford" />
+          </div>
+          <div>
+            <div class="entry-org">University of Oxford</div>
+            <div class="entry-title">Undergraduate Student Researcher</div>
+          </div>
+        </div>
+      </div>
+      <div class="entry-right">
+        <div class="entry-date">Jun 2025 - Aug 2025</div>
+      </div>
+      <ul class="entry-bullets">
+        <li>Awarded UKAEA FOSTER grant for undergraduate nuclear engineers</li>
+        <li>Investigated irradiation-induced damage of SiC using Raman spectroscopy</li>
+        <li>Produced research paper aimed at peer-reviewed publication</li>
+      </ul>
+      <div class="entry-link">
+        <a href="Assets\Final Report J^MD.pdf" target="_blank" rel="noopener">Report -></a>
+        <a href="Assets\FOSTER Poster Oxford Raman.pdf" target="_blank" rel="noopener">Poster -></a>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-left">
+        <div class="entry-head">
+          <div class="entry-logo" aria-label="Visual50 logo placeholder">
+            <img src="Assets/LOGO Visual50.png" alt="Visual50" />
+          </div>
+          <div>
+            <div class="entry-org">Visual50</div>
+            <div class="entry-title">ML Intern</div>
+          </div>
+        </div>
+      </div>
+      <div class="entry-right">
+        <div class="entry-date">Jun 2024 - Sep 2024</div>
+      </div>
+      <ul class="entry-bullets">
+        <li>Machine learning internship working on data from a network optimization product</li>
+        <li>Developed Python program for IP network congestion detection using Machine Learning classification techniques and reinforced learning</li>
+      </ul>
+      <div class="entry-link">
+        <a href="https://www.visual50.com/" target="_blank" rel="noopener">External Page -></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="section">
+    <p class="label"><span>03</span>Projects</p>
+
+    <div class="project-group">
+      <div class="project-group-label">Mechanical Design / Build</div>
+      <div class="projects-grid">
+        <div class="project-row">
+          <div class="card" tabindex="0">
+            <!-- Replace with a project image or video. Remove the hidden attribute on the media element you use. -->
+            <div class="project-thumb" data-placeholder="Project media">
+              <img src="Assets/RocketThumbnail.png" alt="Reusable Rocket Body and Feed System Project thumbnail" />
+              <video muted loop playsinline preload="none">
+                <source data-src="Assets/Takeoff.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="card-title">Reusable Rocket Body and Feed System Project</div>
+            <div class="card-desc">First student-built rocket to hot fire vertically in the UK</div>
+            <div class="card-desc"> Design, manufacture and testing of a reusable liquid bipropellant rocket body and feed system as part of a student rocket programme at Imperial College.</div>
+            <div class="card-expanded">
+              <p>The team developed a compact piston-driven tank and piping system to store and deliver ethanol and nitrous oxide within an integrated, mass-efficient structure. Designed pressure-bearing components, sealing systems, and internal plumbing to ensure reliable propellant delivery.</p>
+              <p>The project involved intesive iterative design and preparation, in close integration with engine and control subteams. The system was validated through hydrostatic, cold-flow, and hot-fire testing (shown in video).</p>
+            </div>
+            <div class="card-link">
+              <a href="Assets\RocketPoster.pdf" target="_blank" rel="noopener">[Poster]</a>
+              <a href="Assets\DMT 5C Final and test report 04-06.pdf" target="_blank" rel="noopener">[Full Report]</a>
+            </div>
+          </div>
+
+          <div class="card" tabindex="0">
+            <!-- Replace with a project image or video. Remove the hidden attribute on the media element you use. -->
+            <div class="project-thumb" data-placeholder="Project media">
+              <img src="Assets/AirCarThumbnail.png" alt="Air-Powered Model Car thumbnail" />
+              <video muted loop playsinline preload="none">
+                <source data-src="Assets/CarMoving.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="card-title">Air-Powered Model Car</div>
+            <div class="card-desc">Design, manufacturing and assembly of a compressed air-powered toy car aiming to navigate a 25-meter course in the shortest time while optimising quality,
+                                    cost-effectiveness and simplicity.</div>
+            <div class="card-expanded">
+              <p>Mechanical design and build project in a team of 4 engineers.</p>
+              <p>Final design based on custom 3D-prints, and designing + machining in-house an oscillating compressed air engine</p>
+            </div>
+            <div class="card-link"><a href="Assets\P35 DMF2 Autumn Report.pdf" target="_blank" rel="noopener">[Project Report]</a></div>
+          </div>
+        </div>
+
+        <div class="project-row">
+          <div class="card" tabindex="0">
+            <!-- Replace with a project image or video. Remove the hidden attribute on the media element you use. -->
+            <div class="project-thumb" data-placeholder="Project media">
+              <img src="Assets/BottleRender.png" alt="Beverage Chiller Design Competition Project thumbnail" />
+              <video muted loop playsinline></video>
+            </div>
+            <div class="card-title">Beverage Chiller Design Competition</div>
+            <div class="card-desc">Designed an attachable beverage chiller through detailed mechanical design and CAD modelling</div>
+            <div class="card-expanded">
+              <p>Led a team of 4 in project from concept development to feasibility investigation and finally design proposal.</p>
+              <p>Balanced cooling performance, form, manufacturability, and packaging within a week-long competition.</p>
+            </div>
+            <div class="card-link"><a href="Assets\Design Week 2024 Poster template.pdf" target="_blank" rel="noopener">[Poster]</a></div>
+          </div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-group">
+      <div class="project-group-label">Coding / Computational</div>
+      <div class="projects-grid">
+        <div class="project-row">
+          <div class="card" tabindex="0">
+            <!-- Replace with a project image or video. Remove the hidden attribute on the media element you use. -->
+            <div class="project-thumb" data-placeholder="Project media">
+              <img src="Assets\BuggyThumbnail.png" alt="" />
+              <video muted loop playsinline preload="none">
+                <source data-src="Assets\Buggy Solving Maze.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="card-title">Maze-Solving Buggy</div>
+            <div class="card-desc">Embedded C development for an autonomous maze-solving buggy with on-board control logic.</div>
+            <div class="card-expanded">
+              <p>Embedded systems capstone project with C on PIC18 microcontrollers.</p>
+              <p>In a team of 2, Developed autonomous maze-navigating buggy which can return to original position once maze is solved</p>
+            </div>
+            <div class="card-link"><a href="https://github.com/jaimelopezruiz/embedded-color-detection" target="_blank" rel="noopener">[Github]</a></div>
+          </div>
+
+          <div class="card" tabindex="0">
+            <!-- Replace with a project image or video. Remove the hidden attribute on the media element you use. -->
+            <div class="project-thumb" data-placeholder="Project media">
+              <img src="Assets\RobotArmsPlaceholder.png" alt="" hidden />
+              <video muted loop playsinline hidden></video>
+            </div>
+            <div class="card-title">Robot Arm Project</div>
+            <div class="card-desc">Currently working on a personal robotics project using two LeRobot SO-101 robot arms</div>
+            <div class="card-expanded">
+              <p>Work in progress</p>
+            </div>
+            <!-- <div class="card-link"><a href="#" target="_blank" rel="noopener">[Add project link]</a></div> -->
+          </div>
+        </div>
+
+        <div class="project-row">
+          <div class="card" tabindex="0">
+            <!-- Replace with a project image or video. Remove the hidden attribute on the media element you use. -->
+            <div class="project-thumb" data-placeholder="Project media">
+              <img src="Assets\Peak Fitting.png" alt="" hidden />
+              <video muted loop playsinline hidden>
+                <!-- <source src="Assets\.mp4" type="video/mp4" /> -->
+              </video>
+            </div>
+            <div class="card-title">RamanSPy-Based Curve Fitting Algorithm for Spectroscopy</div>
+            <div class="card-desc">Python workflow for Raman spectral preprocessing and curve fitting.</div>
+            <div class="card-expanded">
+              <p>Computational workflow for Raman data handling, preprocessing, and curve fitting aimed at more consistent extraction of spectral information.</p>
+              <p>[Add longer project description]</p>
+            </div>
+            <div class="card-link"><a href="https://github.com/jaimelopezruiz/raman-spectra-processing" target="_blank" rel="noopener">[Github]</a></div>
+          </div>
+
+          <div class="card" tabindex="0">
+            <!-- Replace with a project image or video. Remove the hidden attribute on the media element you use. -->
+            <div class="project-thumb" data-placeholder="Project media">
+              <img src="Assets\Lithium ion thumbnail.png" alt="" hidden />
+              <video muted loop playsinline preload="none">
+                <source data-src="Assets\Lithium Electrolyte Video.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="card-title">Python-Based Model of Lithium-Ion Transport in Electrolyte Using Explicit and Implicit PDE Solvers</div>
+            <div class="card-desc">Numerical modelling of lithium-ion transport in a battery electrolyte using finite difference methods to simulate diffusion–convection dynamics during discharge.</div>
+            <div class="card-expanded">
+              <p>The project formulates and solves a 1D convection–diffusion PDE describing how lithium-ion concentration evolves across the electrolyte, using both explicit (FTCS) and implicit (Crank–Nicolson) schemes</p>
+            </div>
+            <div class="card-link"><a href="https://github.com/jaimelopezruiz/ion-transport-pde-solver" target="_blank" rel="noopener">[Github]</a></div>
+          </div>
+
+          <div class="card" tabindex="0">
+            <!-- Replace with a project image or video. Remove the hidden attribute on the media element you use. -->
+            <div class="project-thumb" data-placeholder="Project media">
+              <img src="Assets\KneeDetecetionStandard.png" alt="" hidden />
+              <video muted loop playsinline preload="metadata">
+                <!-- <source src="" type="video/mp4" /> -->
+              </video>
+            </div>
+            <div class="card-title">Congestion-knee detection analysis with Python</div>
+            <div class="card-desc">Heuristic and Gaussian regression-based congestion knee detection in synthetic latency-vs-throughput curves simulating data from network optimisation product.</div>
+            <div class="card-expanded">
+              <!-- <p>Numerical modelling project comparing explicit and implicit time-stepping approaches for transport behaviour in a lithium-ion electrolyte system.</p> -->
+            </div>
+            <div class="card-link"><a href="https://github.com/jaimelopezruiz/congestion-knee-detection" target="_blank" rel="noopener">[Github]</a></div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="courses" class="section">
+    <button class="courses-toggle" aria-expanded="false" aria-controls="courses-body">
+      <span class="courses-toggle-label"><span>04</span>Courses</span>
+      <span class="chevron" aria-hidden="true">></span>
+    </button>
+
+    <div class="courses-body" id="courses-body" role="region">
+      <div class="courses-inner">
+        <div class="course-group">
+          <div class="course-group-title">Year 1</div>
+          <ul class="course-list">
+            <li>Design and Manufacture 1</li>
+            <li>Fluid Mechanics 1</li>
+            <li>Materials 1</li>
+            <li>Mathematics and Computing 1</li>
+            <li>Mechanics</li>
+            <li>Mechatronics 1</li>
+            <li>Stress Analysis 1</li>
+            <li>Thermodynamics 1</li>
+          </ul>
+        </div>
+
+        <div class="course-group">
+          <div class="course-group-title">Year 2</div>
+          <ul class="course-list">
+            <li>Design and Manufacture 2</li>
+            <li>Dynamics</li>
+            <li>Fluid Mechanics 2</li>
+            <li>Heat Transfer</li>
+            <li>Materials 2</li>
+            <li>Mathematics and Computing 2</li>
+            <li>Mechatronics 2</li>
+            <li>Stress Analysis 2</li>
+            <li>Thermodynamics 2</li>
+          </ul>
+        </div>
+
+        <div class="course-group">
+          <div class="course-group-title">Year 3</div>
+          <ul class="course-list">
+            <li>Design, Make and Test Project</li>
+            <li>Embedded C for Microcontrollers</li>
+            <li>Introduction to Nuclear Energy</li>
+            <li>Machine Dynamics and Vibrations</li>
+            <li>Mechatronics 3</li>
+            <li>Nuclear Chemical Engineering</li>
+          </ul>
+        </div>
+
+        <div class="course-group">
+          <div class="course-group-title">Extracurricular</div>
+          <ul class="course-list">
+            <li>Northwestern Modern Robotics: Mechanics, Planning, and Control Specialization</li>
+            <li>MITx 6.86x: Machine Learning with Python - From Linear Models to Deep Learning</li>
+            <li>MITx Nuclear Energy: Science, Systems and Society</li>
+            <li>John Hopkins CTY Introduction to Web Design with HTML5 and CSS</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <p class="label"><span>05</span>Contact</p>
+    <div class="contact-links">
+      <a href="mailto:jaime@lopez-ruiz.com">
+        <span class="link-label">Email</span>
+      </a>
+      <a href="https://github.com/jaimelopezruiz" target="_blank" rel="noopener">
+        <span class="link-label">GitHub</span>
+      </a>
+      <a href="https://linkedin.com/in/jaimelopezruiz" target="_blank" rel="noopener">
+        <span class="link-label">LinkedIn</span>
+      </a>
+      <a href="Assets\CV Jaime Lopez Ruiz.pdf" target="_blank" rel="noopener">
+        <span class="link-label">CV</span>
+      </a>
+    </div>
+    <p class="footer-note">Jaime Lopez Ruiz | Imperial College London | MEng Mechanical Engineering with Nuclear Engineering and a Year in Industry</p>
+  </section>
+
+  <script>
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('#dot-nav a');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          dots.forEach((dot) => dot.classList.remove('active'));
+          const active = document.querySelector(`#dot-nav a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { threshold: 0.35 });
+
+    sections.forEach((section) => observer.observe(section));
+
+    const toggle = document.querySelector('.courses-toggle');
+    const body = document.getElementById('courses-body');
+    const projectCards = document.querySelectorAll('.card');
+    const projectGrids = document.querySelectorAll('.projects-grid');
+
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      body.classList.toggle('open', !expanded);
+    });
+
+    const stopCardVideo = (card) => {
+      const thumb = card.querySelector('.project-thumb');
+      const video = thumb?.querySelector('video');
+      if (!thumb || !video) return;
+      thumb.classList.remove('is-playing');
+      video.pause();
+      video.currentTime = 0;
+    };
+
+    const getVideoSource = (video) => video?.querySelector('source');
+
+    const hasUsableVideo = (video) => {
+      const source = getVideoSource(video);
+      return Boolean(
+        video &&
+        !video.hasAttribute('hidden') &&
+        source &&
+        (source.getAttribute('src') || source.dataset.src)
+      );
+    };
+
+    const loadCardVideo = (card) => {
+      const video = card.querySelector('.project-thumb video');
+      const source = getVideoSource(video);
+      if (!video || !source) return false;
+
+      const deferredSrc = source.dataset.src;
+      if (deferredSrc && !source.getAttribute('src')) {
+        source.setAttribute('src', deferredSrc);
+        video.load();
+      }
+
+      return hasUsableVideo(video);
+    };
+
+    const updateProjectLayouts = () => {
+      projectGrids.forEach((grid) => {
+        const cards = Array.from(grid.querySelectorAll('.card'));
+        const expandedCard = cards.find((card) => card.classList.contains('is-expanded'));
+
+        cards.forEach((card) => {
+          card.style.gridColumn = '';
+          card.style.gridRow = '';
+        });
+
+        if (!expandedCard) {
+          cards.forEach((card, index) => {
+            if (window.innerWidth <= 640) {
+              card.style.gridColumn = '1';
+              card.style.gridRow = String(index + 1);
+              return;
+            }
+
+            card.style.gridColumn = String((index % 2) + 1);
+            card.style.gridRow = String(Math.floor(index / 2) + 1);
+          });
+          return;
+        }
+
+        const expandedIndex = cards.indexOf(expandedCard);
+        const expandedRow = window.innerWidth <= 640 ? expandedIndex + 1 : Math.floor(expandedIndex / 2) + 1;
+        const cardsBeforeExpandedRow = window.innerWidth <= 640
+          ? expandedIndex
+          : Math.floor(expandedIndex / 2) * 2;
+        const remainingCards = cards.filter((card) => card !== expandedCard);
+
+        expandedCard.style.gridColumn = window.innerWidth <= 640 ? '1' : '1 / -1';
+        expandedCard.style.gridRow = String(expandedRow);
+
+        let slotIndex = 0;
+        remainingCards.forEach((card) => {
+          if (slotIndex === cardsBeforeExpandedRow) {
+            slotIndex += window.innerWidth <= 640 ? 1 : 2;
+          }
+
+          if (window.innerWidth <= 640) {
+            card.style.gridColumn = '1';
+            card.style.gridRow = String(slotIndex + 1);
+            slotIndex += 1;
+            return;
+          }
+
+          card.style.gridColumn = String((slotIndex % 2) + 1);
+          card.style.gridRow = String(Math.floor(slotIndex / 2) + 1);
+          slotIndex += 1;
+        });
+      });
+    };
+
+    const scrollCardIntoView = (card) => {
+      const viewportPadding = 24;
+
+      requestAnimationFrame(() => {
+        const rect = card.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const fitsInViewport = rect.height + viewportPadding * 2 <= viewportHeight;
+
+        if (fitsInViewport) {
+          if (rect.top < viewportPadding || rect.bottom > viewportHeight - viewportPadding) {
+            card.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+          }
+          return;
+        }
+
+        if (rect.top < viewportPadding || rect.bottom > viewportHeight - viewportPadding) {
+          const targetTop = window.scrollY + rect.top - viewportPadding;
+          window.scrollTo({
+            top: Math.max(0, targetTop),
+            behavior: 'smooth'
+          });
+        }
+      });
+    };
+
+    const openCard = (card) => {
+      projectCards.forEach((otherCard) => {
+        if (otherCard !== card) {
+          otherCard.classList.remove('is-expanded', 'is-locked');
+          stopCardVideo(otherCard);
+        }
+      });
+
+      card.classList.add('is-expanded');
+
+      const thumb = card.querySelector('.project-thumb');
+      const video = thumb?.querySelector('video');
+      const hasVideo = loadCardVideo(card);
+
+      if (thumb && hasVideo && video) {
+        thumb.classList.add('is-playing');
+        video.play().catch(() => {});
+      }
+
+      updateProjectLayouts();
+      scrollCardIntoView(card);
+    };
+
+    const closeCard = (card) => {
+      if (card.classList.contains('is-locked')) return;
+      card.classList.remove('is-expanded');
+      stopCardVideo(card);
+      updateProjectLayouts();
+    };
+
+    projectCards.forEach((card) => {
+      const thumb = card.querySelector('.project-thumb');
+      const image = thumb.querySelector('img');
+      const video = thumb.querySelector('video');
+      const hasImage = Boolean(image && image.getAttribute('src') && !image.hasAttribute('hidden'));
+      const hasVideo = hasUsableVideo(video);
+
+      if (hasImage || hasVideo) {
+        thumb.classList.add('has-media');
+      }
+
+      let hoverTimer;
+
+      card.addEventListener('mouseenter', () => {
+        clearTimeout(hoverTimer);
+        hoverTimer = setTimeout(() => {
+          if (!card.classList.contains('is-locked')) {
+            openCard(card);
+          }
+        }, 1450);
+      });
+
+      card.addEventListener('mouseleave', () => {
+        clearTimeout(hoverTimer);
+        if (!card.classList.contains('is-locked')) {
+          closeCard(card);
+        }
+      });
+
+      card.addEventListener('click', (event) => {
+        if (event.target.closest('.card-link a')) return;
+
+        const isLocked = card.classList.contains('is-locked');
+        const hasAnotherLockedCard = Array.from(projectCards).some((otherCard) => (
+          otherCard !== card && otherCard.classList.contains('is-locked')
+        ));
+
+        projectCards.forEach((otherCard) => otherCard.classList.remove('is-locked'));
+
+        if (isLocked && !hasAnotherLockedCard) {
+          closeCard(card);
+          return;
+        }
+
+        card.classList.add('is-locked');
+        openCard(card);
+      });
+
+      card.addEventListener('focusin', () => {
+        openCard(card);
+      });
+
+      card.addEventListener('focusout', (event) => {
+        if (!card.contains(event.relatedTarget) && !card.classList.contains('is-locked')) {
+          closeCard(card);
+        }
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      if (event.target.closest('.card')) return;
+      projectCards.forEach((card) => {
+        card.classList.remove('is-locked');
+        closeCard(card);
+      });
+    });
+
+    window.addEventListener('resize', updateProjectLayouts);
+    updateProjectLayouts();
+  </script>
+
+</body>
+</html>
