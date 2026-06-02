@@ -399,8 +399,12 @@
     .projects-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2px;
+      gap: 16px;
       align-items: start;
+    }
+
+    #projects {
+      max-width: 900px;
     }
 
     .project-row {
@@ -560,18 +564,18 @@
 
     .courses-toggle-label {
       font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.18em;
+      font-size: 13px;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: #9a9a9a;
     }
 
     .courses-toggle-label span { color: var(--accent); margin-right: 8px; }
 
     .chevron {
       font-family: var(--mono);
-      font-size: 11px;
-      color: var(--text-dim);
+      font-size: 12px;
+      color: var(--text-muted);
       transition: transform 0.3s ease;
       display: inline-block;
     }
@@ -792,7 +796,7 @@
       </div>
       <ul class="entry-bullets">
         <li>Machine learning internship working on data from a network optimization product</li>
-        <li>Developed Python program for IP network congestion detection using Machine Learning classification techniques and reinforced learning</li>
+        <li>Developed Python program for IP network congestion detection using Machine Learning classification techniques and reinforced learning. See congestion-knee detection project below</li>
       </ul>
       <div class="entry-link">
         <a href="https://www.visual50.com/" target="_blank" rel="noopener">External Page -></a>
@@ -802,70 +806,6 @@
 
   <section id="projects" class="section">
     <p class="label"><span>03</span>Projects</p>
-
-    <div class="project-group">
-      <div class="project-group-label">Mechanical Design / Build</div>
-      <div class="projects-grid">
-        <div class="project-row">
-          <div class="card" tabindex="0">
-            <!-- Replace with a project image or video. Remove the hidden attribute on the media element you use. -->
-            <div class="project-thumb" data-placeholder="Project media">
-              <img src="Assets/RocketThumbnail.png" alt="Reusable Rocket Body and Feed System Project thumbnail" />
-              <video muted loop playsinline preload="none">
-                <source data-src="Assets/Takeoff.mp4" type="video/mp4" />
-              </video>
-            </div>
-            <div class="card-title">Reusable Rocket Body and Feed System Project</div>
-            <div class="card-desc">First student-built rocket to hot fire vertically in the UK</div>
-            <div class="card-desc"> Design, manufacture and testing of a reusable liquid bipropellant rocket body and feed system as part of a student rocket programme at Imperial College.</div>
-            <div class="card-expanded">
-              <p>The team developed a compact piston-driven tank and piping system to store and deliver ethanol and nitrous oxide within an integrated, mass-efficient structure. Designed pressure-bearing components, sealing systems, and internal plumbing to ensure reliable propellant delivery.</p>
-              <p>The project involved intesive iterative design and preparation, in close integration with engine and control subteams. The system was validated through hydrostatic, cold-flow, and hot-fire testing (shown in video).</p>
-            </div>
-            <div class="card-link">
-              <a href="Assets\RocketPoster.pdf" target="_blank" rel="noopener">[Poster]</a>
-              <a href="Assets\DMT 5C Final and test report 04-06.pdf" target="_blank" rel="noopener">[Full Report]</a>
-            </div>
-          </div>
-
-          <div class="card" tabindex="0">
-            <!-- Replace with a project image or video. Remove the hidden attribute on the media element you use. -->
-            <div class="project-thumb" data-placeholder="Project media">
-              <img src="Assets/AirCarThumbnail.png" alt="Air-Powered Model Car thumbnail" />
-              <video muted loop playsinline preload="none">
-                <source data-src="Assets/CarMoving.mp4" type="video/mp4" />
-              </video>
-            </div>
-            <div class="card-title">Air-Powered Model Car</div>
-            <div class="card-desc">Design, manufacturing and assembly of a compressed air-powered toy car aiming to navigate a 25-meter course in the shortest time while optimising quality,
-                                    cost-effectiveness and simplicity.</div>
-            <div class="card-expanded">
-              <p>Mechanical design and build project in a team of 4 engineers.</p>
-              <p>Final design based on custom 3D-prints, and designing + machining in-house an oscillating compressed air engine</p>
-            </div>
-            <div class="card-link"><a href="Assets\P35 DMF2 Autumn Report.pdf" target="_blank" rel="noopener">[Project Report]</a></div>
-          </div>
-        </div>
-
-        <div class="project-row">
-          <div class="card" tabindex="0">
-            <!-- Replace with a project image or video. Remove the hidden attribute on the media element you use. -->
-            <div class="project-thumb" data-placeholder="Project media">
-              <img src="Assets/BottleRender.png" alt="Beverage Chiller Design Competition Project thumbnail" />
-              <video muted loop playsinline></video>
-            </div>
-            <div class="card-title">Beverage Chiller Design Competition</div>
-            <div class="card-desc">Designed an attachable beverage chiller through detailed mechanical design and CAD modelling</div>
-            <div class="card-expanded">
-              <p>Led a team of 4 in project from concept development to feasibility investigation and finally design proposal.</p>
-              <p>Balanced cooling performance, form, manufacturability, and packaging within a week-long competition.</p>
-            </div>
-            <div class="card-link"><a href="Assets\Design Week 2024 Poster template.pdf" target="_blank" rel="noopener">[Poster]</a></div>
-          </div>
-          <div></div>
-        </div>
-      </div>
-    </div>
 
     <div class="project-group">
       <div class="project-group-label">Coding / Computational</div>
@@ -894,12 +834,12 @@
               <img src="Assets\RobotArmsPlaceholder.png" alt="" hidden />
               <video muted loop playsinline hidden></video>
             </div>
-            <div class="card-title">Robot Arm Project</div>
-            <div class="card-desc">Currently working on a personal robotics project using two LeRobot SO-101 robot arms</div>
+            <div class="card-title">Robot Arm Markerless Teleoperation</div>
+            <div class="card-desc">Building a markerless teleoperation pipeline for the SO-101 5-DOF robot arm</div>
             <div class="card-expanded">
-              <p>Work in progress</p>
+              <p>User's arm motion is captured by a standard webcam, processed via pose estimation, and translated into joint commands that drive the physical robot in real time. No wearable trackers, no IMUs, no fiducial markers.</p>
             </div>
-            <!-- <div class="card-link"><a href="#" target="_blank" rel="noopener">[Add project link]</a></div> -->
+            <div class="card-link"><a href="https://github.com/jaimelopezruiz/so101-markerless-teleop/tree/master" target="_blank" rel="noopener">[Github]</a></div>
           </div>
         </div>
 
@@ -956,6 +896,71 @@
         </div>
       </div>
     </div>
+
+        <div class="project-group">
+      <div class="project-group-label">Mechanical Design / Build</div>
+      <div class="projects-grid">
+        <div class="project-row">
+          <div class="card" tabindex="0">
+            <!-- Replace with a project image or video. Remove the hidden attribute on the media element you use. -->
+            <div class="project-thumb" data-placeholder="Project media">
+              <img src="Assets/RocketThumbnail.png" alt="Reusable Rocket Body and Feed System Project thumbnail" />
+              <video muted loop playsinline preload="none">
+                <source data-src="Assets/Takeoff.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="card-title">Reusable Rocket Body and Feed System</div>
+            <div class="card-desc">First student-built rocket to hot fire vertically in the UK</div>
+            <div class="card-desc"> Design, manufacture and testing of a reusable liquid bipropellant rocket body and feed system as part of a student rocket programme at Imperial College.</div>
+            <div class="card-expanded">
+              <p>The team developed a compact piston-driven tank and piping system to store and deliver ethanol and nitrous oxide within an integrated, mass-efficient structure. Designed pressure-bearing components, sealing systems, and internal plumbing to ensure reliable propellant delivery.</p>
+              <p>The project involved intesive iterative design and preparation, in close integration with engine and control subteams. The system was validated through hydrostatic, cold-flow, and hot-fire testing (shown in video).</p>
+            </div>
+            <div class="card-link">
+              <a href="Assets\RocketPoster.pdf" target="_blank" rel="noopener">[Poster]</a>
+              <a href="Assets\DMT 5C Final and test report 04-06.pdf" target="_blank" rel="noopener">[Full Report]</a>
+            </div>
+          </div>
+
+          <div class="card" tabindex="0">
+            <!-- Replace with a project image or video. Remove the hidden attribute on the media element you use. -->
+            <div class="project-thumb" data-placeholder="Project media">
+              <img src="Assets/AirCarThumbnail.png" alt="Air-Powered Model Car thumbnail" />
+              <video muted loop playsinline preload="none">
+                <source data-src="Assets/CarMoving.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="card-title">Air-Powered Model Car</div>
+            <div class="card-desc">Design, manufacturing and assembly of a compressed air-powered toy car aiming to navigate a 25-meter course in the shortest time while optimising quality,
+                                    cost-effectiveness and simplicity.</div>
+            <div class="card-expanded">
+              <p>Mechanical design and build project in a team of 4 engineers.</p>
+              <p>Final design based on custom 3D-prints, and designing + machining in-house an oscillating compressed air engine</p>
+            </div>
+            <div class="card-link"><a href="Assets\P35 DMF2 Autumn Report.pdf" target="_blank" rel="noopener">[Project Report]</a></div>
+          </div>
+        </div>
+
+        <div class="project-row">
+          <div class="card" tabindex="0">
+            <!-- Replace with a project image or video. Remove the hidden attribute on the media element you use. -->
+            <div class="project-thumb" data-placeholder="Project media">
+              <img src="Assets/BottleRender.png" alt="Beverage Chiller Design Competition Project thumbnail" />
+              <video muted loop playsinline></video>
+            </div>
+            <div class="card-title">Beverage Chiller Design Competition</div>
+            <div class="card-desc">Designed an attachable beverage chiller through detailed mechanical design and CAD modelling</div>
+            <div class="card-expanded">
+              <p>Led a team of 4 in project from concept development to feasibility investigation and finally design proposal.</p>
+              <p>Balanced cooling performance, form, manufacturability, and packaging within a week-long competition.</p>
+            </div>
+            <div class="card-link"><a href="Assets\Design Week 2024 Poster template.pdf" target="_blank" rel="noopener">[Poster]</a></div>
+          </div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+
   </section>
 
   <section id="courses" class="section">
@@ -967,16 +972,14 @@
     <div class="courses-body" id="courses-body" role="region">
       <div class="courses-inner">
         <div class="course-group">
-          <div class="course-group-title">Year 1</div>
+          <div class="course-group-title">Year 3</div>
           <ul class="course-list">
-            <li>Design and Manufacture 1</li>
-            <li>Fluid Mechanics 1</li>
-            <li>Materials 1</li>
-            <li>Mathematics and Computing 1</li>
-            <li>Mechanics</li>
-            <li>Mechatronics 1</li>
-            <li>Stress Analysis 1</li>
-            <li>Thermodynamics 1</li>
+            <li>Design, Make and Test Project</li>
+            <li>Embedded C for Microcontrollers</li>
+            <li>Introduction to Nuclear Energy</li>
+            <li>Machine Dynamics and Vibrations</li>
+            <li>Mechatronics 3</li>
+            <li>Nuclear Chemical Engineering</li>
           </ul>
         </div>
 
@@ -996,14 +999,16 @@
         </div>
 
         <div class="course-group">
-          <div class="course-group-title">Year 3</div>
+          <div class="course-group-title">Year 1</div>
           <ul class="course-list">
-            <li>Design, Make and Test Project</li>
-            <li>Embedded C for Microcontrollers</li>
-            <li>Introduction to Nuclear Energy</li>
-            <li>Machine Dynamics and Vibrations</li>
-            <li>Mechatronics 3</li>
-            <li>Nuclear Chemical Engineering</li>
+            <li>Design and Manufacture 1</li>
+            <li>Fluid Mechanics 1</li>
+            <li>Materials 1</li>
+            <li>Mathematics and Computing 1</li>
+            <li>Mechanics</li>
+            <li>Mechatronics 1</li>
+            <li>Stress Analysis 1</li>
+            <li>Thermodynamics 1</li>
           </ul>
         </div>
 
@@ -1043,17 +1048,27 @@
     const sections = document.querySelectorAll('section[id]');
     const dots = document.querySelectorAll('#dot-nav a');
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          dots.forEach((dot) => dot.classList.remove('active'));
-          const active = document.querySelector(`#dot-nav a[href="#${entry.target.id}"]`);
-          if (active) active.classList.add('active');
-        }
+    const updateActiveDot = () => {
+      const trigger = window.scrollY + window.innerHeight * 0.4;
+      let current = sections[0];
+      sections.forEach((section) => {
+        if (section.offsetTop <= trigger) current = section;
       });
-    }, { threshold: 0.35 });
+      dots.forEach((dot) => dot.classList.remove('active'));
+      const active = document.querySelector(`#dot-nav a[href="#${current.id}"]`);
+      if (active) active.classList.add('active');
+    };
 
-    sections.forEach((section) => observer.observe(section));
+    window.addEventListener('scroll', updateActiveDot, { passive: true });
+    updateActiveDot();
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(dot.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
 
     const toggle = document.querySelector('.courses-toggle');
     const body = document.getElementById('courses-body');
