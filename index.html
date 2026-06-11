@@ -3,7 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jaime López Ruiz | Portfolio</title>
+  <meta name="description" content="Portfolio of Jaime López Ruiz - MEng Mechanical Engineering student at Imperial College London, specialising in Mechatronics & Control and Nuclear Engineering." />
+  <meta property="og:title" content="Jaime López Ruiz | Mechanical Engineering Portfolio" />
+  <meta property="og:description" content="MEng Mechanical Engineering student at Imperial College London, specialising in Mechatronics & Control and Nuclear Engineering." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://jaimelopezruiz.github.io/" />
+  <meta property="og:image" content="https://jaimelopezruiz.github.io/Assets/RocketThumbnail.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230c0c0c'/%3E%3Ctext x='32' y='44' font-family='monospace' font-size='30' fill='%235b8fa8' text-anchor='middle'%3EJL%3C/text%3E%3C/svg%3E" />
+  <title>Jaime López Ruiz | Mechanical Engineering Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
@@ -204,22 +212,14 @@
     }
 
     /* About */
-    #about p {
+    #about p:not(.label) {
       color: var(--text);
       max-width: 620px;
       font-size: 19px;
       font-weight: 300;
     }
 
-    #about p + p { margin-top: 18px; }
-
-    .about-meta {
-      margin-top: 24px;
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.06em;
-      color: var(--text-muted);
-    }
+    #about p:not(.label) + p { margin-top: 18px; }
 
     #about .cv-link {
       display: inline-block;
@@ -383,17 +383,32 @@
     }
 
     /* Projects */
-    .project-group + .project-group {
-      margin-top: 34px;
+    .project-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-bottom: 28px;
     }
 
-    .project-group-label {
+    .filter-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
       font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.14em;
+      font-size: 11px;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 0 0 3px;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .filter-btn:hover { color: var(--text); }
+
+    .filter-btn.is-active {
       color: var(--accent);
-      margin-bottom: 14px;
+      border-bottom-color: var(--accent-dim);
     }
 
     .projects-grid {
@@ -407,9 +422,16 @@
       max-width: 900px;
     }
 
-    .project-row {
-      display: contents;
+    .card-tag {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 8px;
     }
+
+    .card.is-hidden { display: none; }
 
     .card {
       background: var(--surface);
@@ -425,6 +447,35 @@
       background: #151515;
       transform: translateY(-3px);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+    }
+
+    .card::after {
+      content: "+";
+      position: absolute;
+      top: 38px;
+      right: 36px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(12, 12, 12, 0.72);
+      border: 1px solid var(--border-mid);
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: 15px;
+      line-height: 26px;
+      text-align: center;
+      z-index: 4;
+      pointer-events: none;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .card:hover::after {
+      color: var(--accent);
+      border-color: var(--accent-dim);
+    }
+
+    .card.is-expanded::after {
+      content: "\2212";
     }
 
     .card.is-expanded {
@@ -691,16 +742,15 @@
 
   <section id="hero" class="section">
     <div class="hero-media" aria-hidden="true">
-      <!-- Replace this source with your hero background video file. -->
       <video class="hero-video" autoplay muted loop playsinline>
-        <source src="Assets\Reduced Hero.mp4" type="video/mp4" />
+        <source src="Assets/Reduced Hero.mp4" type="video/mp4" />
       </video>
       <div class="hero-overlay"></div>
     </div>
     <div class="hero-content">
       <h1 class="hero-name">Jaime López Ruiz</h1>
       <div class="hero-descriptor">
-        <span>MEng Mechanical Engineering</span>
+        <span>MEng Mechanical Engineering with a Year in Industry</span>
         <span>Imperial College London</span>
       </div>
       <div class="hero-links">
@@ -708,31 +758,26 @@
         <a href="#work">Work</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
-        <a href="Assets\CV Jaime Lopez Ruiz.pdf" target="_blank" rel="noopener">CV -></a>
+        <a href="Assets/CV Jaime Lopez Ruiz.pdf" target="_blank" rel="noopener">CV -></a>
       </div>
     </div>
   </section>
 
   <section id="about" class="section">
-    <p>MEng Mechanical Engineering at Imperial College London
-    </p>
-    <p>
-    Specialising in Mechatronics &amp; Control and Nuclear Engineering
-    </p>
-    <p>
-      Fluent in English, Spanish and French (C1) 
-    </p>
-    <a href="Assets\CV Jaime Lopez Ruiz.pdf" target="_blank" rel="noopener" class="cv-link">Download CV -></a>
+    <p class="label"><span>01</span>About</p>
+    <p>MEng Mechanical Engineering student at Imperial College London, specialising in Mechatronics &amp; Control and Nuclear Engineering.</p>
+    <p>Currently on an industrial placement at PerkinElmer as a Mechanical Design Engineer, working on opto-mechanical design for IR/UV spectroscopy instruments.</p>
+    <p>Fluent in English, Spanish and French (C1)</p>
+    <a href="Assets/CV Jaime Lopez Ruiz.pdf" target="_blank" rel="noopener" class="cv-link">Download CV -></a>
   </section>
 
   <section id="work" class="section">
     <p class="label"><span>02</span>Work</p>
-    <!-- Swap each placeholder by setting the img src to your real logo file and removing the hidden attribute. -->
 
     <div class="entry">
       <div class="entry-left">
         <div class="entry-head">
-          <div class="entry-logo" aria-label="PerkinElmer logo placeholder">
+          <div class="entry-logo">
             <img src="Assets/LOGO PerkinElmer.png" alt="PerkinElmer" />
           </div>
           <div>
@@ -745,18 +790,18 @@
         <div class="entry-date">Sep 2025 - Aug 2026</div>
       </div>
       <ul class="entry-bullets">
-        <li>Developing and rapid prototyping of opto-mechanical assemblies for IR/UV instruments </li>
-        <li>Material Characterization-focused R&amp;D in an industrial engineering setting</li>
+        <li>Design and rapid prototyping of opto-mechanical assemblies for IR/UV spectroscopy instruments</li>
+        <li>Materials characterisation-focused R&amp;D in an industrial engineering setting</li>
       </ul>
       <div class="entry-link">
-        <a href="https://www.perkinelmer.com/category/molecular-spectroscopy" target="_blank" rel="noopener">External Page -></a>
+        <a href="https://www.perkinelmer.com/category/molecular-spectroscopy" target="_blank" rel="noopener">PerkinElmer Spectroscopy -></a>
       </div>
     </div>
 
     <div class="entry">
       <div class="entry-left">
         <div class="entry-head">
-          <div class="entry-logo" aria-label="University of Oxford logo placeholder">
+          <div class="entry-logo">
             <img src="Assets/LOGO Oxford.png" alt="University of Oxford" />
           </div>
           <div>
@@ -774,15 +819,15 @@
         <li>Produced research paper aimed at peer-reviewed publication</li>
       </ul>
       <div class="entry-link">
-        <a href="Assets\Final Report J^MD.pdf" target="_blank" rel="noopener">Report -></a>
-        <a href="Assets\FOSTER Poster Oxford Raman.pdf" target="_blank" rel="noopener">Poster -></a>
+        <a href="Assets/Final Report J^MD.pdf" target="_blank" rel="noopener">Report -></a>
+        <a href="Assets/FOSTER Poster Oxford Raman.pdf" target="_blank" rel="noopener">Poster -></a>
       </div>
     </div>
 
     <div class="entry">
       <div class="entry-left">
         <div class="entry-head">
-          <div class="entry-logo" aria-label="Visual50 logo placeholder">
+          <div class="entry-logo">
             <img src="Assets/LOGO Visual50.png" alt="Visual50" />
           </div>
           <div>
@@ -795,11 +840,11 @@
         <div class="entry-date">Jun 2024 - Sep 2024</div>
       </div>
       <ul class="entry-bullets">
-        <li>Machine learning internship working on data from a network optimization product</li>
-        <li>Developed Python program for IP network congestion detection using Machine Learning classification techniques and reinforced learning. See congestion-knee detection project below</li>
+        <li>Machine learning internship working on data from a network optimisation product</li>
+        <li>Developed a Python program for IP network congestion detection using machine learning classification and reinforcement learning - see the congestion-knee detection project below</li>
       </ul>
       <div class="entry-link">
-        <a href="https://www.visual50.com/" target="_blank" rel="noopener">External Page -></a>
+        <a href="https://www.visual50.com/" target="_blank" rel="noopener">visual50.com -></a>
       </div>
     </div>
   </section>
@@ -807,160 +852,142 @@
   <section id="projects" class="section">
     <p class="label"><span>03</span>Projects</p>
 
-    <div class="project-group">
-      <div class="project-group-label">Coding / Computational</div>
-      <div class="projects-grid">
-        <div class="project-row">
-          <div class="card" tabindex="0">
-            <!-- Replace with a project image or video. Remove the hidden attribute on the media element you use. -->
-            <div class="project-thumb" data-placeholder="Project media">
-              <img src="Assets\BuggyThumbnail.png" alt="" />
-              <video muted loop playsinline preload="none">
-                <source data-src="Assets\Buggy Solving Maze.mp4" type="video/mp4" />
-              </video>
-            </div>
-            <div class="card-title">Maze-Solving Buggy</div>
-            <div class="card-desc">Embedded C development for an autonomous maze-solving buggy with on-board control logic.</div>
-            <div class="card-expanded">
-              <p>Embedded systems capstone project with C on PIC18 microcontrollers.</p>
-              <p>In a team of 2, Developed autonomous maze-navigating buggy which can return to original position once maze is solved</p>
-            </div>
-            <div class="card-link"><a href="https://github.com/jaimelopezruiz/embedded-color-detection" target="_blank" rel="noopener">[Github]</a></div>
-          </div>
-
-          <div class="card" tabindex="0">
-            <!-- Replace with a project image or video. Remove the hidden attribute on the media element you use. -->
-            <div class="project-thumb" data-placeholder="Project media">
-              <img src="Assets\RobotArmsPlaceholder.png" alt="" hidden />
-              <video muted loop playsinline hidden></video>
-            </div>
-            <div class="card-title">Robot Arm Markerless Teleoperation</div>
-            <div class="card-desc">Building a markerless teleoperation pipeline for the SO-101 5-DOF robot arm</div>
-            <div class="card-expanded">
-              <p>User's arm motion is captured by a standard webcam, processed via pose estimation, and translated into joint commands that drive the physical robot in real time. No wearable trackers, no IMUs, no fiducial markers.</p>
-            </div>
-            <div class="card-link"><a href="https://github.com/jaimelopezruiz/so101-markerless-teleop/tree/master" target="_blank" rel="noopener">[Github]</a></div>
-          </div>
-        </div>
-
-        <div class="project-row">
-          <div class="card" tabindex="0">
-            <!-- Replace with a project image or video. Remove the hidden attribute on the media element you use. -->
-            <div class="project-thumb" data-placeholder="Project media">
-              <img src="Assets\Peak Fitting.png" alt="" hidden />
-              <video muted loop playsinline hidden>
-                <!-- <source src="Assets\.mp4" type="video/mp4" /> -->
-              </video>
-            </div>
-            <div class="card-title">RamanSPy-Based Curve Fitting Algorithm for Spectroscopy</div>
-            <div class="card-desc">Python workflow for Raman spectral preprocessing and curve fitting.</div>
-            <div class="card-expanded">
-              <p>Computational workflow for Raman data handling, preprocessing, and curve fitting aimed at more consistent extraction of spectral information.</p>
-              <p>[Add longer project description]</p>
-            </div>
-            <div class="card-link"><a href="https://github.com/jaimelopezruiz/raman-spectra-processing" target="_blank" rel="noopener">[Github]</a></div>
-          </div>
-
-          <div class="card" tabindex="0">
-            <!-- Replace with a project image or video. Remove the hidden attribute on the media element you use. -->
-            <div class="project-thumb" data-placeholder="Project media">
-              <img src="Assets\Lithium ion thumbnail.png" alt="" hidden />
-              <video muted loop playsinline preload="none">
-                <source data-src="Assets\Lithium Electrolyte Video.mp4" type="video/mp4" />
-              </video>
-            </div>
-            <div class="card-title">Python-Based Model of Lithium-Ion Transport in Electrolyte Using Explicit and Implicit PDE Solvers</div>
-            <div class="card-desc">Numerical modelling of lithium-ion transport in a battery electrolyte using finite difference methods to simulate diffusion–convection dynamics during discharge.</div>
-            <div class="card-expanded">
-              <p>The project formulates and solves a 1D convection–diffusion PDE describing how lithium-ion concentration evolves across the electrolyte, using both explicit (FTCS) and implicit (Crank–Nicolson) schemes</p>
-            </div>
-            <div class="card-link"><a href="https://github.com/jaimelopezruiz/ion-transport-pde-solver" target="_blank" rel="noopener">[Github]</a></div>
-          </div>
-
-          <div class="card" tabindex="0">
-            <!-- Replace with a project image or video. Remove the hidden attribute on the media element you use. -->
-            <div class="project-thumb" data-placeholder="Project media">
-              <img src="Assets\KneeDetecetionStandard.png" alt="" hidden />
-              <video muted loop playsinline preload="metadata">
-                <!-- <source src="" type="video/mp4" /> -->
-              </video>
-            </div>
-            <div class="card-title">Congestion-knee detection analysis with Python</div>
-            <div class="card-desc">Heuristic and Gaussian regression-based congestion knee detection in synthetic latency-vs-throughput curves simulating data from network optimisation product.</div>
-            <div class="card-expanded">
-              <!-- <p>Numerical modelling project comparing explicit and implicit time-stepping approaches for transport behaviour in a lithium-ion electrolyte system.</p> -->
-            </div>
-            <div class="card-link"><a href="https://github.com/jaimelopezruiz/congestion-knee-detection" target="_blank" rel="noopener">[Github]</a></div>
-          </div>
-          
-        </div>
-      </div>
+    <div class="project-filters" role="group" aria-label="Filter projects">
+      <button class="filter-btn is-active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="design">Mechanical Design</button>
+      <button class="filter-btn" data-filter="computational">Computational</button>
     </div>
 
-        <div class="project-group">
-      <div class="project-group-label">Mechanical Design / Build</div>
-      <div class="projects-grid">
-        <div class="project-row">
-          <div class="card" tabindex="0">
-            <!-- Replace with a project image or video. Remove the hidden attribute on the media element you use. -->
-            <div class="project-thumb" data-placeholder="Project media">
-              <img src="Assets/RocketThumbnail.png" alt="Reusable Rocket Body and Feed System Project thumbnail" />
-              <video muted loop playsinline preload="none">
-                <source data-src="Assets/Takeoff.mp4" type="video/mp4" />
-              </video>
-            </div>
-            <div class="card-title">Reusable Rocket Body and Feed System</div>
-            <div class="card-desc">First student-built rocket to hot fire vertically in the UK</div>
-            <div class="card-desc"> Design, manufacture and testing of a reusable liquid bipropellant rocket body and feed system as part of a student rocket programme at Imperial College.</div>
-            <div class="card-expanded">
-              <p>The team developed a compact piston-driven tank and piping system to store and deliver ethanol and nitrous oxide within an integrated, mass-efficient structure. Designed pressure-bearing components, sealing systems, and internal plumbing to ensure reliable propellant delivery.</p>
-              <p>The project involved intesive iterative design and preparation, in close integration with engine and control subteams. The system was validated through hydrostatic, cold-flow, and hot-fire testing (shown in video).</p>
-            </div>
-            <div class="card-link">
-              <a href="Assets\RocketPoster.pdf" target="_blank" rel="noopener">[Poster]</a>
-              <a href="Assets\DMT 5C Final and test report 04-06.pdf" target="_blank" rel="noopener">[Full Report]</a>
-            </div>
-          </div>
-
-          <div class="card" tabindex="0">
-            <!-- Replace with a project image or video. Remove the hidden attribute on the media element you use. -->
-            <div class="project-thumb" data-placeholder="Project media">
-              <img src="Assets/AirCarThumbnail.png" alt="Air-Powered Model Car thumbnail" />
-              <video muted loop playsinline preload="none">
-                <source data-src="Assets/CarMoving.mp4" type="video/mp4" />
-              </video>
-            </div>
-            <div class="card-title">Air-Powered Model Car</div>
-            <div class="card-desc">Design, manufacturing and assembly of a compressed air-powered toy car aiming to navigate a 25-meter course in the shortest time while optimising quality,
-                                    cost-effectiveness and simplicity.</div>
-            <div class="card-expanded">
-              <p>Mechanical design and build project in a team of 4 engineers.</p>
-              <p>Final design based on custom 3D-prints, and designing + machining in-house an oscillating compressed air engine</p>
-            </div>
-            <div class="card-link"><a href="Assets\P35 DMF2 Autumn Report.pdf" target="_blank" rel="noopener">[Project Report]</a></div>
-          </div>
+    <div class="projects-grid">
+      <div class="card" tabindex="0" data-category="design">
+        <div class="project-thumb" data-placeholder="Project media">
+          <img src="Assets/RocketThumbnail.png" alt="Reusable Rocket Body and Feed System Project thumbnail" />
+          <video muted loop playsinline preload="none">
+            <source data-src="Assets/Takeoff.mp4" type="video/mp4" />
+          </video>
         </div>
-
-        <div class="project-row">
-          <div class="card" tabindex="0">
-            <!-- Replace with a project image or video. Remove the hidden attribute on the media element you use. -->
-            <div class="project-thumb" data-placeholder="Project media">
-              <img src="Assets/BottleRender.png" alt="Beverage Chiller Design Competition Project thumbnail" />
-              <video muted loop playsinline></video>
-            </div>
-            <div class="card-title">Beverage Chiller Design Competition</div>
-            <div class="card-desc">Designed an attachable beverage chiller through detailed mechanical design and CAD modelling</div>
-            <div class="card-expanded">
-              <p>Led a team of 4 in project from concept development to feasibility investigation and finally design proposal.</p>
-              <p>Balanced cooling performance, form, manufacturability, and packaging within a week-long competition.</p>
-            </div>
-            <div class="card-link"><a href="Assets\Design Week 2024 Poster template.pdf" target="_blank" rel="noopener">[Poster]</a></div>
-          </div>
-          <div></div>
+        <div class="card-tag">Mechanical Design</div>
+        <div class="card-title">Reusable Rocket Body and Feed System</div>
+        <div class="card-desc">First student-built rocket to hot-fire vertically in the UK.</div>
+        <div class="card-desc">Design, manufacture and testing of a reusable liquid bipropellant rocket body and feed system as part of a student rocket programme at Imperial College.</div>
+        <div class="card-expanded">
+          <p>The team developed a compact piston-driven tank and piping system to store and deliver ethanol and nitrous oxide within an integrated, mass-efficient structure. Designed pressure-bearing components, sealing systems, and internal plumbing to ensure reliable propellant delivery.</p>
+          <p>The project involved intensive iterative design and preparation, in close integration with engine and control subteams. The system was validated through hydrostatic, cold-flow, and hot-fire testing (shown in video).</p>
+        </div>
+        <div class="card-link">
+          <a href="Assets/RocketPoster.pdf" target="_blank" rel="noopener">[Poster]</a>
+          <a href="Assets/DMT 5C Final and test report 04-06.pdf" target="_blank" rel="noopener">[Full Report]</a>
         </div>
       </div>
-    </div>
 
+      <div class="card" tabindex="0" data-category="computational">
+        <div class="project-thumb" data-placeholder="Project media">
+          <img src="Assets/RobotArmsPlaceholder.png" alt="SO-101 robot arm teleoperation" />
+          <video muted loop playsinline hidden></video>
+        </div>
+        <div class="card-tag">Computational</div>
+        <div class="card-title">Robot Arm Markerless Teleoperation</div>
+        <div class="card-desc">Real-time teleoperation of the SO-101 5-DOF robot arm from a standard webcam — no markers, no wearables.</div>
+        <div class="card-expanded">
+          <p>The user's arm motion is captured by a webcam, processed via pose estimation, and translated into joint commands that drive the physical robot in real time. No wearable trackers, no IMUs, no fiducial markers.</p>
+        </div>
+        <div class="card-link"><a href="https://github.com/jaimelopezruiz/so101-markerless-teleop/tree/master" target="_blank" rel="noopener">[GitHub]</a></div>
+      </div>
+
+      <div class="card" tabindex="0" data-category="computational">
+        <div class="project-thumb" data-placeholder="Project media">
+          <img src="Assets/BuggyThumbnail.png" alt="Maze-solving buggy" />
+          <video muted loop playsinline preload="none">
+            <source data-src="Assets/Buggy Solving Maze.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="card-tag">Computational</div>
+        <div class="card-title">Maze-Solving Buggy</div>
+        <div class="card-desc">Embedded C development for an autonomous maze-solving buggy with on-board control logic.</div>
+        <div class="card-expanded">
+          <p>Embedded systems capstone project written in C on PIC18 microcontrollers.</p>
+          <p>In a team of two, developed an autonomous buggy that navigates a maze and retraces its path back to the start once solved.</p>
+        </div>
+        <div class="card-link"><a href="https://github.com/jaimelopezruiz/embedded-color-detection" target="_blank" rel="noopener">[GitHub]</a></div>
+      </div>
+
+      <div class="card" tabindex="0" data-category="computational">
+        <div class="project-thumb" data-placeholder="Project media">
+          <img src="Assets/Peak Fitting.png" alt="Raman spectra peak fitting" />
+          <video muted loop playsinline hidden></video>
+        </div>
+        <div class="card-tag">Computational</div>
+        <div class="card-title">Raman Spectra Processing &amp; Curve Fitting</div>
+        <div class="card-desc">Python workflow for Raman spectral preprocessing and curve fitting, built on RamanSPy.</div>
+        <div class="card-expanded">
+          <p>Computational workflow for Raman data handling, preprocessing, and curve fitting aimed at more consistent extraction of spectral information.</p>
+          <p>Developed to support my research at the University of Oxford on irradiation-induced damage in SiC.</p>
+        </div>
+        <div class="card-link"><a href="https://github.com/jaimelopezruiz/raman-spectra-processing" target="_blank" rel="noopener">[GitHub]</a></div>
+      </div>
+
+      <div class="card" tabindex="0" data-category="design">
+        <div class="project-thumb" data-placeholder="Project media">
+          <img src="Assets/AirCarThumbnail.png" alt="Air-Powered Model Car thumbnail" />
+          <video muted loop playsinline preload="none">
+            <source data-src="Assets/CarMoving.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="card-tag">Mechanical Design</div>
+        <div class="card-title">Air-Powered Model Car</div>
+        <div class="card-desc">Design, manufacture and assembly of a compressed-air-powered model car, built to complete a 25-metre course in the shortest time.</div>
+        <div class="card-expanded">
+          <p>Mechanical design and build project in a team of four, balancing speed against quality, cost-effectiveness and simplicity.</p>
+          <p>Final design combined custom 3D-printed parts with an oscillating compressed-air engine designed and machined in-house.</p>
+        </div>
+        <div class="card-link"><a href="Assets/P35 DMF2 Autumn Report.pdf" target="_blank" rel="noopener">[Project Report]</a></div>
+      </div>
+
+      <div class="card" tabindex="0" data-category="computational">
+        <div class="project-thumb" data-placeholder="Project media">
+          <img src="Assets/KneeDetecetionStandard.png" alt="Congestion knee detection plot" />
+          <video muted loop playsinline hidden></video>
+        </div>
+        <div class="card-tag">Computational</div>
+        <div class="card-title">Congestion-Knee Detection in Network Traffic</div>
+        <div class="card-desc">Heuristic and Gaussian regression-based congestion knee detection in synthetic latency-vs-throughput curves simulating data from a network optimisation product.</div>
+        <div class="card-expanded">
+          <p>Developed during my machine learning internship at Visual50, comparing a heuristic baseline against regression-based approaches for locating the congestion knee.</p>
+        </div>
+        <div class="card-link"><a href="https://github.com/jaimelopezruiz/congestion-knee-detection" target="_blank" rel="noopener">[GitHub]</a></div>
+      </div>
+
+      <div class="card" tabindex="0" data-category="computational">
+        <div class="project-thumb" data-placeholder="Project media">
+          <img src="Assets/Lithium ion thumbnail.png" alt="Lithium-ion transport simulation" />
+          <video muted loop playsinline preload="none">
+            <source data-src="Assets/Lithium electrolyte video.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="card-tag">Computational</div>
+        <div class="card-title">Lithium-Ion Transport in a Battery Electrolyte</div>
+        <div class="card-desc">Numerical modelling of lithium-ion transport during discharge, using finite difference methods to simulate diffusion–convection dynamics in Python.</div>
+        <div class="card-expanded">
+          <p>Formulates and solves a 1D convection–diffusion PDE describing how lithium-ion concentration evolves across the electrolyte, using both explicit (FTCS) and implicit (Crank–Nicolson) schemes.</p>
+        </div>
+        <div class="card-link"><a href="https://github.com/jaimelopezruiz/ion-transport-pde-solver" target="_blank" rel="noopener">[GitHub]</a></div>
+      </div>
+
+      <div class="card" tabindex="0" data-category="design">
+        <div class="project-thumb" data-placeholder="Project media">
+          <img src="Assets/BottleRender.png" alt="Beverage Chiller Design Competition Project thumbnail" />
+          <video muted loop playsinline hidden></video>
+        </div>
+        <div class="card-tag">Mechanical Design</div>
+        <div class="card-title">Beverage Chiller Design Competition</div>
+        <div class="card-desc">Attachable beverage chiller developed through detailed mechanical design and CAD modelling.</div>
+        <div class="card-expanded">
+          <p>Led a team of four from concept development through feasibility investigation to final design proposal.</p>
+          <p>Balanced cooling performance, form, manufacturability, and packaging within a week-long competition.</p>
+        </div>
+        <div class="card-link"><a href="Assets/Design Week 2024 Poster template.pdf" target="_blank" rel="noopener">[Poster]</a></div>
+      </div>
+    </div>
   </section>
 
   <section id="courses" class="section">
@@ -971,6 +998,19 @@
 
     <div class="courses-body" id="courses-body" role="region">
       <div class="courses-inner">
+
+        <div class="course-group">
+          <div class="course-group-title">Year 4 (Master)</div>
+          <ul class="course-list">
+            <li> Robotic Manipulators and Automation Technology</li>
+            <li>Robot Dynamics and Control</li>
+            <li>Advanced Applied Optimisation</li>
+            <li>Machine Learning</li>
+            <li>Nuclear Fusion</li>
+            <li>Nuclear Materials</li>
+          </ul>
+        </div>
+
         <div class="course-group">
           <div class="course-group-title">Year 3</div>
           <ul class="course-list">
@@ -1018,7 +1058,7 @@
             <li>Northwestern Modern Robotics: Mechanics, Planning, and Control Specialization</li>
             <li>MITx 6.86x: Machine Learning with Python - From Linear Models to Deep Learning</li>
             <li>MITx Nuclear Energy: Science, Systems and Society</li>
-            <li>John Hopkins CTY Introduction to Web Design with HTML5 and CSS</li>
+            <li>Johns Hopkins CTY Introduction to Web Design with HTML5 and CSS</li>
           </ul>
         </div>
       </div>
@@ -1037,11 +1077,11 @@
       <a href="https://linkedin.com/in/jaimelopezruiz" target="_blank" rel="noopener">
         <span class="link-label">LinkedIn</span>
       </a>
-      <a href="Assets\CV Jaime Lopez Ruiz.pdf" target="_blank" rel="noopener">
+      <a href="Assets/CV Jaime Lopez Ruiz.pdf" target="_blank" rel="noopener">
         <span class="link-label">CV</span>
       </a>
     </div>
-    <p class="footer-note">Jaime Lopez Ruiz | Imperial College London | MEng Mechanical Engineering with Nuclear Engineering and a Year in Industry</p>
+    <p class="footer-note">Jaime Lopez Ruiz | Imperial College London | MEng Mechanical Engineering with a Year in Industry</p>
   </section>
 
   <script>
@@ -1074,11 +1114,31 @@
     const body = document.getElementById('courses-body');
     const projectCards = document.querySelectorAll('.card');
     const projectGrids = document.querySelectorAll('.projects-grid');
+    const filterButtons = document.querySelectorAll('.filter-btn');
 
     toggle.addEventListener('click', () => {
       const expanded = toggle.getAttribute('aria-expanded') === 'true';
       toggle.setAttribute('aria-expanded', String(!expanded));
       body.classList.toggle('open', !expanded);
+    });
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach((other) => other.classList.remove('is-active'));
+        btn.classList.add('is-active');
+
+        const filter = btn.dataset.filter;
+        projectCards.forEach((card) => {
+          const show = filter === 'all' || card.dataset.category === filter;
+          card.classList.toggle('is-hidden', !show);
+          if (!show) {
+            card.classList.remove('is-expanded', 'is-locked');
+            stopCardVideo(card);
+          }
+        });
+
+        updateProjectLayouts();
+      });
     });
 
     const stopCardVideo = (card) => {
@@ -1118,7 +1178,8 @@
 
     const updateProjectLayouts = () => {
       projectGrids.forEach((grid) => {
-        const cards = Array.from(grid.querySelectorAll('.card'));
+        const cards = Array.from(grid.querySelectorAll('.card'))
+          .filter((card) => !card.classList.contains('is-hidden'));
         const expandedCard = cards.find((card) => card.classList.contains('is-expanded'));
 
         cards.forEach((card) => {
@@ -1236,21 +1297,17 @@
         thumb.classList.add('has-media');
       }
 
-      let hoverTimer;
-
       card.addEventListener('mouseenter', () => {
-        clearTimeout(hoverTimer);
-        hoverTimer = setTimeout(() => {
-          if (!card.classList.contains('is-locked')) {
-            openCard(card);
-          }
-        }, 1450);
+        if (card.classList.contains('is-expanded')) return;
+        if (loadCardVideo(card) && video) {
+          thumb.classList.add('is-playing');
+          video.play().catch(() => {});
+        }
       });
 
       card.addEventListener('mouseleave', () => {
-        clearTimeout(hoverTimer);
-        if (!card.classList.contains('is-locked')) {
-          closeCard(card);
+        if (!card.classList.contains('is-expanded')) {
+          stopCardVideo(card);
         }
       });
 
@@ -1273,13 +1330,11 @@
         openCard(card);
       });
 
-      card.addEventListener('focusin', () => {
-        openCard(card);
-      });
-
-      card.addEventListener('focusout', (event) => {
-        if (!card.contains(event.relatedTarget) && !card.classList.contains('is-locked')) {
-          closeCard(card);
+      card.addEventListener('keydown', (event) => {
+        if (event.target !== card) return;
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          card.click();
         }
       });
     });
