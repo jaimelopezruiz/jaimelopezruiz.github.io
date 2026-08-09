@@ -670,7 +670,7 @@
     .card-expanded p:last-child { margin-bottom: 0; }
 
     .card.is-expanded .card-expanded {
-      max-height: 220px;
+      max-height: 620px;
       opacity: 1;
       margin-top: 8px;
     }
@@ -862,7 +862,7 @@
     <div class="hero-media">
       <!-- Replace this source with your hero background video file. -->
       <video class="hero-video" autoplay muted loop playsinline>
-        <source src="Assets/Reduced Hero.mp4" type="video/mp4" />
+        <source src="Assets/hero-reduced.mp4" type="video/mp4" />
       </video>
       <div class="hero-overlay"></div>
       <div class="hero-media-content">
@@ -881,7 +881,7 @@
         <a href="#work">Work</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
-        <a href="Assets/CV Jaime Lopez Ruiz.pdf" target="_blank" rel="noopener">CV -></a>
+        <a href="Assets/cv-jaime-lopez-ruiz.pdf" target="_blank" rel="noopener">CV -></a>
       </div>
     </div>
   </section>
@@ -891,7 +891,7 @@
     <p class="about-lead">Mechanical engineer passionate about building precise hardware and the software that drives it.</p>
     <p class="about-body">My work spans robotics and mechatronics, nuclear materials research, and computational modelling. Recently that has meant coding a teleoperation pipeline for a robot arm, designing a precision motor assembly for a spectroscopy instrument, characterising irradiated silicon carbide, and building and hot-firing a liquid rocket feed system.</p>
     <p class="about-meta">MEng Mechanical Engineering with a Year in Industry · Imperial College London<br>Robotics, Mechatronics &amp; Nuclear Engineering · EN / ES / FR (C1)</p>
-    <a href="Assets/CV Jaime Lopez Ruiz.pdf" target="_blank" rel="noopener" class="cv-link">Download CV -></a>
+    <a href="Assets/cv-jaime-lopez-ruiz.pdf" target="_blank" rel="noopener" class="cv-link">Download CV -></a>
   </section>
 
   <section id="work" class="section">
@@ -901,7 +901,7 @@
       <div class="entry-left">
         <div class="entry-head">
           <div class="entry-logo" aria-label="PerkinElmer logo">
-            <img src="Assets/LOGO PerkinElmer.png" alt="PerkinElmer" />
+            <img src="Assets/logo-perkinelmer.png" alt="PerkinElmer" />
           </div>
           <div>
             <div class="entry-org">PerkinElmer</div>
@@ -926,7 +926,7 @@
       <div class="entry-left">
         <div class="entry-head">
           <div class="entry-logo" aria-label="University of Oxford logo">
-            <img src="Assets/LOGO Oxford.png" alt="University of Oxford" />
+            <img src="Assets/logo-oxford.png" alt="University of Oxford" />
           </div>
           <div>
             <div class="entry-org">University of Oxford</div>
@@ -939,12 +939,14 @@
       </div>
       <ul class="entry-bullets">
         <li>Awarded UKAEA FOSTER grant for undergraduate nuclear engineers</li>
-        <li>Investigated irradiation-induced damage of SiC using Raman spectroscopy</li>
-        <li>Produced research paper aimed at peer-reviewed publication</li>
+        <li>Investigated irradiation-induced damage in ion-irradiated SiC using Raman spectroscopy, extending to in-situ high-temperature annealing and residual stresses in SiC/SiC composites</li>
+        <li>Built the physics-informed Python analysis pipeline behind the quantitative results: region-wise multi-peak fitting, covariance-propagated 1&sigma; uncertainties validated against Monte Carlo, and derived damage and stress metrics with explicit uncertainty budgets</li>
+        <li>Manuscript in preparation for peer-reviewed submission</li>
+        <li>Co-author on an invited talk at the TMS 2027 Annual Meeting, Orlando: "High temperature Raman spectroscopy of in-situ annealing of ion irradiated SiC and residual stresses in SiC/SiC composites"</li>
       </ul>
       <div class="entry-link">
-        <a href="Assets/Final Report J^MD.pdf" target="_blank" rel="noopener">Report -></a>
-        <a href="Assets/FOSTER Poster Oxford Raman.pdf" target="_blank" rel="noopener">Poster -></a>
+        <a href="Assets/final-report-jmd.pdf" target="_blank" rel="noopener">Report -></a>
+        <a href="Assets/foster-poster-oxford-raman.pdf" target="_blank" rel="noopener">Poster -></a>
       </div>
     </div>
 
@@ -952,7 +954,7 @@
       <div class="entry-left">
         <div class="entry-head">
           <div class="entry-logo" aria-label="Visual50 logo">
-            <img src="Assets/LOGO Visual50.png" alt="Visual50" />
+            <img src="Assets/logo-visual50.png" alt="Visual50" />
           </div>
           <div>
             <div class="entry-org">Visual50</div>
@@ -1001,7 +1003,7 @@
         </div>
         <div class="card-link">
           <a href="Assets/RocketPoster.pdf" target="_blank" rel="noopener">[Poster]</a>
-          <a href="Assets/DMT 5C Final and test report 04-06.pdf" target="_blank" rel="noopener">[Full Report]</a>
+          <a href="Assets/dmt-5c-final-and-test-report-04-06.pdf" target="_blank" rel="noopener">[Full Report]</a>
         </div>
       </div>
 
@@ -1027,7 +1029,7 @@
         <div class="project-thumb" data-placeholder="Project media">
           <img src="Assets/BuggyThumbnail.png" alt="Maze-Solving Buggy thumbnail" />
           <video muted loop playsinline preload="none">
-            <source data-src="Assets/Buggy Solving Maze.mp4" type="video/mp4" />
+            <source data-src="Assets/buggy-solving-maze.mp4" type="video/mp4" />
           </video>
         </div>
         <div class="card-category">Computational</div>
@@ -1043,15 +1045,15 @@
       <div class="card" tabindex="0" data-category="computational">
         <div class="card-toggle" aria-hidden="true">+</div>
         <div class="project-thumb" data-placeholder="Project media">
-          <img src="Assets/Peak Fitting.png" alt="" hidden />
+          <img src="Assets/peak-fitting.png" alt="" hidden />
           <video muted loop playsinline hidden></video>
         </div>
         <div class="card-category">Computational</div>
-        <div class="card-title">RamanSPy-Based Curve Fitting Algorithm for Spectroscopy</div>
-        <div class="card-desc">Python workflow for Raman spectral preprocessing and curve fitting.</div>
+        <div class="card-title">Physics-Informed Raman Fitting Pipeline for Irradiated SiC</div>
+        <div class="card-desc">Config-driven Python pipeline for quantitative Raman analysis of ion-irradiated SiC, carrying a propagated uncertainty on every reported number.</div>
         <div class="card-expanded">
-          <p>A computational workflow for Raman data handling, preprocessing, and curve fitting, aimed at more consistent extraction of spectral information.</p>
-          <p>Built on the RamanSPy library, the pipeline handles baseline correction, cosmic-ray removal, and normalisation before fitting overlapping peaks, making spectral parameters reproducible across large datasets.</p>
+          <p>Per-sample YAML physics inputs, auto-detected, drive region-wise fitting of overlapping peaks with Gaussian, Lorentzian, Voigt and Breit&ndash;Wigner&ndash;Fano line shapes. Every peak parameter carries a 1&sigma; uncertainty propagated from the fit covariance and validated against Monte Carlo to 0.1%, alongside automated fit-quality diagnostics and flags. RamanSPy is used for parts of the spectral handling; the fitting, uncertainty and metrics layers are the project's own.</p>
+          <p>Derived material metrics &mdash; chemical-disorder ratio, a coupling-invariant crystallinity index, and residual stress and strain mapping with a stated detection floor &mdash; come with explicit uncertainty budgets separating statistical from systematic error. Regression tests and scripted figures mean every quantitative result and figure in the manuscript regenerates from tracked code, configs and raw spectra.</p>
         </div>
         <div class="card-link"><a href="https://github.com/jaimelopezruiz/raman-spectra-processing" target="_blank" rel="noopener">[Github]</a></div>
       </div>
@@ -1071,15 +1073,15 @@
           <p>Mechanical design and build project in a team of 4 engineers.</p>
           <p>Final design based on custom 3D-prints, with an oscillating compressed-air engine designed and machined in-house.</p>
         </div>
-        <div class="card-link"><a href="Assets/P35 DMF2 Autumn Report.pdf" target="_blank" rel="noopener">[Project Report]</a></div>
+        <div class="card-link"><a href="Assets/p35-dmf2-autumn-report.pdf" target="_blank" rel="noopener">[Project Report]</a></div>
       </div>
 
       <div class="card" tabindex="0" data-category="computational">
         <div class="card-toggle" aria-hidden="true">+</div>
         <div class="project-thumb" data-placeholder="Project media">
-          <img src="Assets/Lithium ion thumbnail.png" alt="" hidden />
+          <img src="Assets/lithium-ion-thumbnail.png" alt="" hidden />
           <video muted loop playsinline preload="none">
-            <source data-src="Assets/Lithium Electrolyte Video.mp4" type="video/mp4" />
+            <source data-src="Assets/lithium-electrolyte-video.mp4" type="video/mp4" />
           </video>
         </div>
         <div class="card-category">Computational</div>
@@ -1120,7 +1122,7 @@
           <p>Led a team of 4 from concept development to feasibility investigation and final design proposal.</p>
           <p>Balanced cooling performance, form, manufacturability, and packaging within a week-long competition.</p>
         </div>
-        <div class="card-link"><a href="Assets/Design Week 2024 Poster template.pdf" target="_blank" rel="noopener">[Poster]</a></div>
+        <div class="card-link"><a href="Assets/design-week-2024-poster-template.pdf" target="_blank" rel="noopener">[Poster]</a></div>
       </div>
     </div>
   </section>
@@ -1253,6 +1255,17 @@
           <span class="tag">Johns Hopkins CTY &middot; Web Design with HTML5 &amp; CSS</span>
         </div>
       </div>
+
+      <div class="edu-year">
+        <div class="edu-year-label">
+          <div class="edu-year-num">Awards</div>
+          <div class="edu-year-sub">Recognition</div>
+        </div>
+        <div class="tag-row">
+          <span class="tag">Nova Talent 111 Students &middot; Top 10 in Engineering &amp; Technology, Spain</span>
+          <span class="tag">UKAEA FOSTER Grant &middot; Undergraduate Nuclear Engineers</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1269,7 +1282,7 @@
       <a href="https://linkedin.com/in/jaimelopezruiz" target="_blank" rel="noopener">
         <span class="link-label">LinkedIn</span>
       </a>
-      <a href="Assets/CV Jaime Lopez Ruiz.pdf" target="_blank" rel="noopener">
+      <a href="Assets/cv-jaime-lopez-ruiz.pdf" target="_blank" rel="noopener">
         <span class="link-label">CV</span>
       </a>
     </div>
