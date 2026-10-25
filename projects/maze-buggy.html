@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maze-Solving Buggy · Jaime López Ruiz</title>
+<meta name="description" content="A PIC18 buggy in bare-metal C that navigates a maze by coloured cards and retraces its route home.">
+<meta name="theme-color" content="#0A0A0B">
+<meta property="og:title" content="Maze-Solving Buggy · Jaime López Ruiz">
+<meta property="og:description" content="A PIC18 buggy in bare-metal C that navigates a maze by coloured cards and retraces its route home.">
+<link rel="stylesheet" href="../Assets/site/fonts.css">
+<link rel="stylesheet" href="../Assets/site/site.css">
+<script src="../Assets/site/fx.js" defer></script>
+</head>
+<body class="k-code" data-raw-start>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="head-row">
+    <a class="brand" href="../index.html" aria-label="Jaime López Ruiz, home"><span class="mono-mark">JLR</span><span class="brand-name">Jaime López Ruiz</span></a>
+    <nav class="site-nav" aria-label="Site"><a href="../index.html">Index</a><a href="../projects/index.html" aria-current="page">Projects</a><a href="../research/index.html">Research</a><a href="../experience.html">Experience</a><a href="../about.html">About</a></nav>
+    <div class="head-tools">
+      <span class="sheet-no" data-sheet>Sheet 02.5 / Maze buggy</span>
+      <div class="seg" role="group" aria-label="Images and video"><button type="button" data-raw="0" aria-pressed="true">Processed</button><button type="button" data-raw="1" aria-pressed="false">Raw video</button></div>
+      <a class="head-cv" href="../Assets/cv-jaime-lopez-ruiz.pdf">CV ↓</a>
+    </div>
+  </div>
+  <div class="ruler" aria-hidden="true"><span>1</span><span>2</span><span class="on">3</span><span class="on">4</span><span class="on">5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span></div>
+</header>
+<main id="main">
+<div class="wrap sheet-top">
+  <p class="label crumb"><a href="../projects/index.html#more">← Projects</a>   ·   <span class="kind-badge">$_ Code sheet</span>   ·   Embedded C for Microcontrollers, Imperial, Mar 2025</p>
+  <h1 class="display sheet-title">Maze-solving<br>buggy</h1>
+  <p class="lede">A PIC18 buggy that reads colour-coded cards to find its way through a maze, then retraces its route back to the start. Bare-metal C, built as a team of two for the Embedded C module.</p>
+  <div class="sheet-links"><a class="btn" href="https://github.com/jaimelopezruiz/embedded-color-detection">Project overview on GitHub ↗</a></div><div class="facts"><div><div class="label">Controller</div><div class="v">PIC18</div></div><div><div class="label">Sensing</div><div class="v">Colour click, RGB + clear</div></div><div><div class="label">Team</div><div class="v">Two</div></div><div><div class="label">Language</div><div class="v">C</div></div></div>
+  <div style="margin-top:48px">
+  <section class="sec"><div class="sec-label"><b>01</b>Demo</div><div class="sec-body"><figure style="margin:0"><div class="fx" data-fx="ascii" data-target="rect" style="aspect-ratio:4/3;max-width:820px"><canvas role="img" aria-label="The buggy driving up to coloured cards in a maze of walls and turning at each one"></canvas><video class="src" data-src="../Assets/site/media/maze-buggy.mp4" muted loop playsinline preload="none" poster="../Assets/site/posters/maze-buggy.jpg"></video></div>
+    <figcaption class="media-cap"><span class="label">A run through the test maze, seen from above. Hover for the raw frame.</span><span class="seg" role="group" aria-label="This video"><button type="button" data-raw="0" aria-pressed="true">ASCII</button><button type="button" data-raw="1" aria-pressed="false">Raw video</button></span></figcaption></figure></div></section><section class="sec"><div class="sec-label"><b>02</b>Loop</div><div class="sec-body"><div class="flow">
+    <div class="stage"><span class="h">1 · Drive</span><span class="d">Poll the clear channel with the LED off; stop when it drops below a calibrated threshold at the wall. A pulse counter logs how long it drove.</span><span class="f">driveMode()</span></div><span class="arr" aria-hidden="true">→</span>
+    <div class="stage"><span class="h">2 · Read</span><span class="d">Lower gain, longer integration, white LED on. R, G and B normalised by their sum on a 0–255 integer scale, so no floats.</span><span class="f">normRGB_val()</span></div><span class="arr" aria-hidden="true">→</span>
+    <div class="stage"><span class="h">3 · Classify</span><span class="d">Per-channel thresholds, plus a reflectivity total for colours whose RGB ranges overlap.</span><span class="f">detectcolor()</span></div>
+    <div class="stage"><span class="h">4 · Act</span><span class="d">Push the card’s integer onto a movement stack and perform the move.</span><span class="f">perform_motion()</span></div><span class="arr" aria-hidden="true">→</span>
+    <div class="stage"><span class="h">5 · Retrace</span><span class="d">On white, walk the stack backwards with every integer negated, so each move runs in reverse, replaying the logged drive pulses.</span><span class="f">perform_motion()</span></div><span class="arr" aria-hidden="true">→</span>
+    <div class="stage"><span class="h">6 · Fail-safe</span><span class="d">Black means a missed card: push “return home”, lights on, retrace. A nearly full stack forces the same.</span><span class="f">main.c</span></div>
+  </div></div></section><section class="sec"><div class="sec-label"><b>03</b>Card code</div><div class="sec-body"><div class="tbl-wrap"><table class="tbl" style="min-width:460px;max-width:720px">
+    <tr><th>Card</th><th>Move</th><th>Pushed</th></tr>
+    <tr><td><span class="sw" style="background:#C8352B"></span>Red</td><td>Right 90°</td><td class="num">1</td></tr>
+    <tr><td><span class="sw" style="background:#2E8B4A"></span>Green</td><td>Left 90°</td><td class="num">−1</td></tr>
+    <tr><td><span class="sw" style="background:#2F5DB5"></span>Blue</td><td>Turn 180°</td><td class="num">0</td></tr>
+    <tr><td><span class="sw" style="background:#E3C437"></span>Yellow</td><td>Back one square, right 90°</td><td class="num">2</td></tr>
+    <tr><td><span class="sw" style="background:#E07BB0"></span>Pink</td><td>Back one square, left 90°</td><td class="num">3</td></tr>
+    <tr><td><span class="sw" style="background:#E8862E"></span>Orange</td><td>Right 135°</td><td class="num">4</td></tr>
+    <tr><td><span class="sw" style="background:#79BFE3"></span>Light blue</td><td>Left 135°</td><td class="num">−4</td></tr>
+    <tr><td><span class="sw" style="background:#F2F0EA"></span>White, black</td><td>Return home</td><td class="num">5</td></tr>
+  </table></div>
+  <p style="margin-top:16px">Negating an integer gives the reverse move, so the way home is a walk back down the stack.</p></div></section><section class="sec"><div class="sec-label"><b>04</b>What didn’t work</div><div class="sec-body"><p>I tried HSV first. It depended on balancing the channels against white and black readings and on the room’s light, so cards got mixed up. Shining red, green and blue light in turn was no more consistent. What worked was white light and a decision tree on the normalised channels.</p>
+    <p>I also tried interrupts from the colour sensor to save power while driving. The interrupt service routine never cleared the flag properly, so we went back to polling the clear channel.</p>
+    <p>A 3D-printed sensor shroud only ever read black, so we went back to the card one.</p></div></section><section class="sec"><div class="sec-label"><b>05</b>Test day</div><div class="sec-body"><p>The logged drive times worked and the buggy retraced the maze, but it never made the last straight back to the start. The fault is either in the first drive recording or in the last drive pulled off the stack. I have not tracked it down.</p></div></section><section class="sec"><div class="sec-label"><b>06</b>Calibration</div><div class="sec-body"><figure style="margin:0 0 18px"><div class="fx" data-still><canvas role="img" aria-label="The buggy on a bench next to a laptop"></canvas><img class="src" src="../Assets/site/img/maze-buggy.jpg" alt="" hidden></div>
+    <figcaption class="media-cap"><span class="label">The buggy on the bench.</span></figcaption></figure>
+    <p>Three routines kept it working on a new floor: clear-channel values over serial to set the stopping threshold, recorded RGB ranges per card to set the colour thresholds, and a two-button mode to tune turn angles on the buggy itself, without a PC.</p></div></section><section class="sec"><div class="sec-label"><b>07</b>Stack</div><div class="sec-body"><div class="stack"><span>C</span><span>PIC18</span><span>I2C</span><span>Python</span></div>
+    <p class="label" style="margin-top:14px;line-height:1.7;text-transform:none;letter-spacing:0.02em">Team of two. The full code lives in a private Imperial College repository; the public overview has excerpts.</p></div></section>
+  </div>
+</div>
+</main>
+<nav class="pager" aria-label="Sheets"><div class="wrap"><a href="../projects/rocket.html">← 02.4 Rocket</a><span class="mid">Sheet 02.5 · Rev A</span><a href="../projects/li-ion-pde-solver.html">02.6 Li-ion PDE solver →</a></div></nav><footer class="site-foot">
+  <div class="wrap">
+    <span class="email">jaime@lopez-ruiz.com</span>
+    <a href="mailto:jaime@lopez-ruiz.com">Email</a>
+    <a href="https://github.com/jaimelopezruiz">GitHub</a>
+    <a href="https://linkedin.com/in/jaimelopezruiz">LinkedIn</a>
+    <a href="../Assets/cv-jaime-lopez-ruiz.pdf">CV</a>
+    <a href="../privacy.html">Privacy</a>
+    <span class="push">© 2026 Jaime López Ruiz · EN / ES / FR</span>
+  </div>
+</footer>
+</body>
+</html>

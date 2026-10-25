@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Markerless Teleoperation · Jaime López Ruiz</title>
+<meta name="description" content="Driving an SO-101 robot arm from a single webcam: pose estimation, a radial mapping and damped least-squares IK.">
+<meta name="theme-color" content="#0A0A0B">
+<meta property="og:title" content="Markerless Teleoperation · Jaime López Ruiz">
+<meta property="og:description" content="Driving an SO-101 robot arm from a single webcam: pose estimation, a radial mapping and damped least-squares IK.">
+<link rel="stylesheet" href="../Assets/site/fonts.css">
+<link rel="stylesheet" href="../Assets/site/site.css">
+<script src="../Assets/site/fx.js" defer></script>
+</head>
+<body class="k-code" data-raw-start>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="head-row">
+    <a class="brand" href="../index.html" aria-label="Jaime López Ruiz, home"><span class="mono-mark">JLR</span><span class="brand-name">Jaime López Ruiz</span></a>
+    <nav class="site-nav" aria-label="Site"><a href="../index.html">Index</a><a href="../projects/index.html" aria-current="page">Projects</a><a href="../research/index.html">Research</a><a href="../experience.html">Experience</a><a href="../about.html">About</a></nav>
+    <div class="head-tools">
+      <span class="sheet-no" data-sheet>Sheet 02.1 / Teleoperation</span>
+      <div class="seg" role="group" aria-label="Images and video"><button type="button" data-raw="0" aria-pressed="true">Processed</button><button type="button" data-raw="1" aria-pressed="false">Raw video</button></div>
+      <a class="head-cv" href="../Assets/cv-jaime-lopez-ruiz.pdf">CV ↓</a>
+    </div>
+  </div>
+  <div class="ruler" aria-hidden="true"><span>1</span><span>2</span><span class="on">3</span><span class="on">4</span><span class="on">5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span></div>
+</header>
+<main id="main">
+<div class="wrap sheet-top">
+  <p class="label crumb"><a href="../projects/index.html#teleoperation">← Projects</a>   ·   <span class="kind-badge">$_ Code sheet</span>   ·   Personal project, Apr 2026 – ongoing</p>
+  <h1 class="display sheet-title">Markerless<br>teleoperation</h1>
+  <p class="lede">An SO-101 arm driven from a single webcam. Pose estimation, a radial mapping from my arm to the robot's reach, and damped least-squares IK turn my movement into joint commands. No wearables, no markers.</p>
+  <div class="sheet-links"><a class="btn" href="https://github.com/jaimelopezruiz/so101-markerless-teleop">Code on GitHub ↗</a><a class="btn" href="https://github.com/jaimelopezruiz/so101-markerless-teleop/blob/master/DEVLOG.md">Read the devlog ↗</a></div><div class="facts"><div><div class="label">Robot</div><div class="v">SO-101, 5-DOF</div></div><div><div class="label">Sensing</div><div class="v">One webcam</div></div><div><div class="label">Status</div><div class="v"><span class="amber">Ongoing</span></div></div><div><div class="label">Language</div><div class="v">Python</div></div></div>
+  <div style="margin-top:48px">
+  <section class="sec"><div class="sec-label"><b>01</b>Demo</div><div class="sec-body"><figure style="margin:0"><div class="fx" data-fx="ascii" data-target="rect"><canvas role="img" aria-label="Me moving my right arm while the SO-101 on the desk follows it"></canvas><video class="src" data-src="../Assets/site/media/teleop.mp4" muted loop playsinline preload="none" poster="../Assets/site/posters/teleop.jpg"></video></div>
+    <figcaption class="media-cap"><span class="label">My right arm on camera, the robot on the desk. Hover for the raw frame.</span><span class="seg" role="group" aria-label="This video"><button type="button" data-raw="0" aria-pressed="true">ASCII</button><button type="button" data-raw="1" aria-pressed="false">Raw video</button></span></figcaption></figure></div></section><section class="sec"><div class="sec-label"><b>02</b>Pipeline</div><div class="sec-body"><div class="flow">
+    <div class="stage"><span class="h">1 · Capture</span><span class="d">Webcam frames on a background thread, so inference never blocks control.</span><span class="f">perception/perception_thread.py</span></div><span class="arr" aria-hidden="true">→</span>
+    <div class="stage"><span class="h">2 · Pose</span><span class="d">MediaPipe gives my shoulder and wrist in metric world coordinates.</span><span class="f">perception/pose_detector.py</span></div><span class="arr" aria-hidden="true">→</span>
+    <div class="stage"><span class="h">3 · Filter</span><span class="d">A one-euro filter: heavy smoothing when my hand is still, light when it moves.</span><span class="f">bridge/bridge.py</span></div>
+    <div class="stage"><span class="h">4 · Map</span><span class="d">Radial map: arm extension sets the reach radius, hand direction sets the angle.</span><span class="f">bridge/bridge.py</span></div><span class="arr" aria-hidden="true">→</span>
+    <div class="stage"><span class="h">5 · Solve</span><span class="d">Damped least-squares IK, with a null-space bias toward a natural posture.</span><span class="f">kinematics/ik.py</span></div><span class="arr" aria-hidden="true">→</span>
+    <div class="stage"><span class="h">6 · Drive</span><span class="d">Joint commands to the SO-101 through my LeRobot teleoperator class.</span><span class="f">lerobot_teleoperator_markerless/</span></div>
+  </div></div></section><section class="sec"><div class="sec-label"><b>03</b>How it evolved</div><div class="sec-body"><table class="tbl log">
+    <tr><td>2026-06-14</td><td>First working version on the real arm, with elbow tracking.</td></tr>
+    <tr><td>2026-07-27</td><td>MediaPipe moved into one PoseDetector shared by every client.</td></tr>
+    <tr><td>2026-08-09</td><td>Perception moved onto its own thread.</td></tr>
+    <tr><td>2026-08-16</td><td>LeRobot teleoperator class with a ready-pose gate, so the arm never lunges at handover.</td></tr>
+    <tr><td>2026-08-21</td><td>Piecewise-linear extension-to-radius map, for finer control where I actually work.</td></tr>
+    <tr><td>2026-08-30</td><td>Control period measured and logged.</td></tr>
+  </table></div></section><section class="sec"><div class="sec-label"><b>04</b>What I learned</div><div class="sec-body"><ol style="margin:0;padding-left:22px;display:grid;gap:12px;max-width:68ch">
+    <li>Determine joint signs in isolation. Teleop confounds too many errors at once to read a single sign off it.</li>
+    <li>Mapping hand position straight to tool position made deep folds impossible to command, so I switched to the radial map.</li>
+    <li>The arm jerked at startup for two separate reasons. A measured limp pose fixes the joint-space jerk, and a ready-pose gate fixes the task-space one.</li>
+  </ol></div></section><section class="sec"><div class="sec-label"><b>05</b>Tests</div><div class="sec-body"><table class="tbl">
+    <tr><td><code>test_fk</code></td><td>Forward kinematics against yourdfpy</td></tr>
+    <tr><td><code>test_jacobian</code></td><td>Jacobian against numerical differentiation</td></tr>
+    <tr><td><code>test_ik</code></td><td>Round-trip, singularity and convergence radius</td></tr>
+    <tr><td><code>test_bridge</code></td><td>Calibration and mapping, no hardware needed</td></tr>
+  </table></div></section><section class="sec"><div class="sec-label"><b>06</b>Next</div><div class="sec-body"><table class="tbl todo">
+    <tr><td>[ ]</td><td>Velocity-level IK at a fixed control rate</td></tr>
+    <tr><td>[ ]</td><td>Gripper channel</td></tr>
+    <tr><td>[ ]</td><td>Depth from stereo, the missing axis</td></tr>
+    <tr><td>[ ]</td><td>Policy training on recorded demonstrations</td></tr>
+  </table></div></section><section class="sec"><div class="sec-label"><b>07</b>Stack</div><div class="sec-body"><div class="stack"><span>Python</span><span>MediaPipe</span><span>OpenCV</span><span>NumPy</span><span>LeRobot</span></div>
+    <p class="label" style="margin-top:14px;line-height:1.7;text-transform:none;letter-spacing:0.02em">kinematics/core.py is a trimmed subset of the Modern Robotics code library (Weng, Hunt, Schultz, Todes). Hardware interface by LeRobot.</p></div></section>
+  </div>
+</div>
+</main>
+<nav class="pager" aria-label="Sheets"><div class="wrap"><a href="../projects/beverage-chiller.html">← 02.9 Beverage chiller</a><span class="mid">Sheet 02.1 · Rev B</span><a href="../projects/precision-motor-assembly.html">02.2 Precision motor assembly →</a></div></nav><footer class="site-foot">
+  <div class="wrap">
+    <span class="email">jaime@lopez-ruiz.com</span>
+    <a href="mailto:jaime@lopez-ruiz.com">Email</a>
+    <a href="https://github.com/jaimelopezruiz">GitHub</a>
+    <a href="https://linkedin.com/in/jaimelopezruiz">LinkedIn</a>
+    <a href="../Assets/cv-jaime-lopez-ruiz.pdf">CV</a>
+    <a href="../privacy.html">Privacy</a>
+    <span class="push">© 2026 Jaime López Ruiz · EN / ES / FR</span>
+  </div>
+</footer>
+</body>
+</html>
