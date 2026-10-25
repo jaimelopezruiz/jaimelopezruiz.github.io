@@ -12,15 +12,13 @@
 <link rel="stylesheet" href="../Assets/site/site.css">
 <script src="../Assets/site/fx.js" defer></script>
 </head>
-<body class="k-code" data-raw-start>
+<body class="k-code">
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head">
   <div class="head-row">
-    <a class="brand" href="../index.html" aria-label="Jaime López Ruiz, home"><span class="mono-mark">JLR</span><span class="brand-name">Jaime López Ruiz</span></a>
-    <nav class="site-nav" aria-label="Site"><a href="../index.html">Index</a><a href="../projects/index.html" aria-current="page">Projects</a><a href="../research/index.html">Research</a><a href="../experience.html">Experience</a><a href="../about.html">About</a></nav>
+    <nav class="site-nav" aria-label="Site"><a href="../index.html">About</a><a href="../projects/index.html" aria-current="page">Projects</a><a href="../research/index.html">Research</a><a href="../experience.html">Experience</a></nav>
     <div class="head-tools">
       <span class="sheet-no" data-sheet>Sheet 02.6 / Li-ion PDE solver</span>
-      <div class="seg" role="group" aria-label="Images and video"><button type="button" data-raw="0" aria-pressed="true">Processed</button><button type="button" data-raw="1" aria-pressed="false">Raw video</button></div>
       <a class="head-cv" href="../Assets/cv-jaime-lopez-ruiz.pdf">CV ↓</a>
     </div>
   </div>
@@ -33,8 +31,8 @@
   <p class="lede">Lithium-ion transport across a battery electrolyte during discharge, written as a 1D convection–diffusion equation and solved two ways: explicit FTCS and implicit Crank–Nicolson. Built as a team of two.</p>
   <div class="sheet-links"><a class="btn" href="https://github.com/jaimelopezruiz/ion-transport-pde-solver">Code and report on GitHub ↗</a></div><div class="facts"><div><div class="label">Domain</div><div class="v">50 µm electrolyte</div></div><div><div class="label">Equation</div><div class="v">1D convection–diffusion</div></div><div><div class="label">Schemes</div><div class="v">FTCS, Crank–Nicolson</div></div><div><div class="label">Language</div><div class="v">Python</div></div></div>
   <div style="margin-top:48px">
-  <section class="sec"><div class="sec-label"><b>01</b>Solution</div><div class="sec-body"><figure style="margin:0"><div class="fx" data-fx="ascii" data-target="rect" style="aspect-ratio:960/572"><canvas role="img" aria-label="Heat map of ion concentration over time: high concentration starts at the anode and spreads towards the cathode"></canvas><video class="src" data-src="../Assets/site/media/li-ion.mp4" muted loop playsinline preload="none" poster="../Assets/site/posters/li-ion.jpg"></video></div>
-    <figcaption class="media-cap"><span class="label">Concentration across the electrolyte as discharge goes on. Anode at the top, cathode at the bottom; brighter is higher.</span><span class="seg" role="group" aria-label="This video"><button type="button" data-raw="0" aria-pressed="true">ASCII</button><button type="button" data-raw="1" aria-pressed="false">Raw video</button></span></figcaption></figure></div></section><section class="sec"><div class="sec-label"><b>02</b>Model</div><div class="sec-body"><p class="eq">∂c/∂t = D ∂²c/∂x² − μE ∂c/∂x</p>
+  <section class="sec"><div class="sec-label"><b>01</b>Solution</div><div class="sec-body"><figure style="margin:0"><div class="fx" data-fx="plain" style="aspect-ratio:960/572"><canvas role="img" aria-label="Heat map of ion concentration over time: high concentration starts at the anode and spreads towards the cathode"></canvas><video class="src" data-src="../Assets/site/media/li-ion.mp4" muted loop playsinline preload="none" poster="../Assets/site/posters/li-ion.jpg"></video></div>
+    <figcaption class="media-cap"><span class="label">Concentration across the electrolyte as discharge goes on. Anode at the top, cathode at the bottom; brighter is higher.</span></figcaption></figure></div></section><section class="sec"><div class="sec-label"><b>02</b>Model</div><div class="sec-body"><p class="eq">∂c/∂t = D ∂²c/∂x² − μE ∂c/∂x</p>
     <p>Diffusion spreads the ions out; the electric field drifts them from anode to cathode. The time scale comes from a phone battery discharging over five to six hours.</p>
     <table class="tbl" style="max-width:720px;margin-top:8px">
       <tr><td style="width:150px">Initial</td><td>Exponential profile in x</td></tr>

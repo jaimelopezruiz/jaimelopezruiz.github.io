@@ -354,3 +354,19 @@ img.plot { display: block; width: 100%; background: #fff; border: 1px solid var(
 .k-mech .sheet-links .btn { border-color: var(--ink); color: var(--paper); background: var(--ink); }
 .k-mech .sheet-links .btn:hover { background: var(--amber-ink); border-color: var(--amber-ink); color: var(--paper); }
 @media (max-width: 760px) { .sheet-links .btn { width: 100%; justify-content: space-between; } }
+/* Footage on the home hero is plain video, so give the title a dark floor to sit on */
+.hero .stage::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1; background: linear-gradient(to top, rgba(10, 10, 11, 0.82) 0%, rgba(10, 10, 11, 0.45) 38%, rgba(10, 10, 11, 0) 70%); }
+.hero-copy, .hero-card { z-index: 2; }
+@media (max-width: 860px) { .hero .stage::after { background: linear-gradient(to top, rgba(10, 10, 11, 0.5) 0%, rgba(10, 10, 11, 0) 40%); } }
+/* Header without the brand mark: the nav starts at the left, About is home */
+.site-nav { justify-content: flex-start; }
+@media (max-width: 860px) { .site-nav { order: 0; flex: 1 1 auto; flex-basis: auto; } }
+/* Home: cue to scroll to the About section */
+.scroll-cue { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 3; display: inline-flex; flex-direction: column; align-items: center; gap: 6px; padding: 6px 12px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--bone); text-decoration: none; }
+.scroll-cue:hover { color: var(--amber); text-decoration: none; }
+.scroll-cue svg { animation: cue 1.8s ease-in-out infinite; }
+@keyframes cue { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+@media (prefers-reduced-motion: reduce) { .scroll-cue svg { animation: none; } }
+@media (max-width: 860px) { .scroll-cue { position: static; transform: none; margin: 0 0 28px var(--gutter); padding: 0; flex-direction: row; gap: 10px; } .scroll-cue svg { animation-name: cue; } }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

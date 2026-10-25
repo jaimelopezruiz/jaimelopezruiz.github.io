@@ -11,16 +11,16 @@
   };
 
   /* ---------- Processed / raw switch (one setting for the whole site) ---------- */
-  var stored = store.get('jlr-raw'), explicit = stored !== null;
-  /* Code sheets open on the real footage; a saved choice or a click overrides that. */
-  var raw = explicit ? stored === '1' : !!(document.body && document.body.hasAttribute('data-raw-start'));
+  var explicit = false;
+  /* Footage with data-fx="plain" is shown as is; nothing is stored in the browser. */
+  var raw = false;
   var rawListeners = [];
   function syncRawButtons() {
     var bs = document.querySelectorAll('[data-raw]');
     for (var i = 0; i < bs.length; i++) bs[i].setAttribute('aria-pressed', ((bs[i].getAttribute('data-raw') === '1') === raw) ? 'true' : 'false');
   }
   function setRaw(v, src) {
-    raw = !!v; explicit = true; store.set('jlr-raw', raw ? '1' : '0'); syncRawButtons();
+    raw = !!v; explicit = true; syncRawButtons();
     rawListeners.forEach(function (f) { f(raw, src); });
   }
   document.addEventListener('click', function (e) {
@@ -160,7 +160,7 @@
         var want = (video.currentTime >= autoAt && video.currentTime < (video.duration || 99) - 0.15) ? 1 : 0;
         r.mix += (want - r.mix) * (want ? 0.09 : 0.25);
         if (Math.abs(want - r.mix) < 0.01) r.mix = want;
-      } else r.mix = raw ? 1 : 0;
+      } else r.mix = (raw || mode === 'plain') ? 1 : 0;
       if (r.mix < 1) {
         if (mode === 'ascii' || mode === 'ascii-soft') { ctx.fillStyle = bg; ctx.fillRect(0, 0, f.W, f.H); ascii(f, c, mode === 'ascii-soft'); }
         else if (mode === 'ink') dither(f, c, INK, B8, 8);
